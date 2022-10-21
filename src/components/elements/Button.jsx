@@ -19,7 +19,7 @@ const StButton = styled.button`
   height: 40px !important;
   font-weight: 600;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.4;
   border: 0;
   color: #fd5c63;
   border-radius: 10px;
@@ -31,6 +31,7 @@ const StButton = styled.button`
   border: 0;
   color: white;
 }
+
 ${({ size }) => {
     switch (size) {
       case "full":
@@ -83,8 +84,8 @@ ${({ color }) => {
       }
       `
       case "line":
-      retrun css`
-        color: white;
+        return css`
+        background-color: white;
         border: 1px solid #fd5c63;
       `
       
