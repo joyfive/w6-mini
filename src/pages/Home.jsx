@@ -1,17 +1,22 @@
 import React from 'react'
 import Button from '../components/elements/Button'
 import Input from '../components/elements/Input'
+import Layout from '../components/elements/Layout'
+
+import Styled from 'styled-components'
+
 
 const Home = () => {
   return (
-    <div>Home<br />
+    <Layout>
+    <Div>Home<br />
       <Button>안녕하세요</Button>
       <Button size="full">안녕하세요</Button><br />
       <Button size="large">안녕하세요</Button><br />
       <Button size="medium">안녕하세요</Button><br />
       <Button size="small">안</Button><br />
       <Button size="round">안</Button><br />
-      
+
       <Button color="reverse">안녕하세요</Button><br />
       <Button color="reverse" size="full">안녕하세요</Button><br />
       <Button color="reverse" size="large">안녕하세요</Button><br />
@@ -38,9 +43,14 @@ const Home = () => {
       <Input color="line" size="full"></Input><br />
       <Input color="line" size="large"></Input><br />
       <Input color="line" size="medium"></Input><br />
-      </div>
-    
+      </Div>
+      </Layout>
   )
 }
 
-export default Home
+export default Home;
+
+const Div = Styled.div`
+  width: 90%;
+  margin: 0 auto;
+`
