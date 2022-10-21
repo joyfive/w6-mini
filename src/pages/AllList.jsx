@@ -2,7 +2,7 @@ import React from 'react'
 
 const AllList = () => {
   return (
-    <div>AllList</div>
+    <div>AllListㅎ</div>
   )
 }
 
