@@ -88,7 +88,92 @@ ${({ color }) => {
         background-color: white;
         border: 1px solid #fd5c63;
       `
-      
+      case "tag-b":
+        return css`
+        background-color: white;
+        border: 1px solid #121212;
+        color: #121212;
+        cursor: default;
+        width: 100%;
+        font-size: 13px;
+        font-weight: 400;
+        padding: 3px;
+        line-height: 0;
+        height: 20px !important;
+        border-radius: 5px;
+        margin: 0 3px;
+        box-shadow: none;
+        :hover{
+          background-color: white;
+          color: #121212;
+          border: 1px solid #121212;
+
+        }
+      `
+        case "tag-red":
+        return css`
+        background-color: white;
+        border: 1px solid #fd5c63;
+        cursor: default;
+        width: 100%;
+        font-size: 13px;
+        font-weight: 400;
+        padding: 3px;
+        line-height: 0;
+        height: 20px !important;
+        border-radius: 5px;
+        margin: 0 3px;
+        box-shadow: none;
+
+        :hover{
+          background-color: white;
+          color: #fd5c63;
+          border: 1px solid #fd5c63;
+        }
+      `
+      case "cmt-b":
+        return css`
+        background-color: white;
+        border: 1px solid #121212;
+        color: #121212;
+        cursor: pointer;
+        width: 100%;
+        font-size: 11px;
+        font-weight: 400;
+        padding: 3px;
+        line-height: 0;
+        height: 20px !important;
+        border-radius: 5px;
+        margin: 0 3px;
+        box-shadow: none;
+        :hover{
+          background-color: #333;
+          color: white;
+          border: 1px solid #333;
+        }
+
+      `
+        case "cmt-red":
+        return css`
+        background-color: white;
+        border: 1px solid #fd5c63;
+        cursor: pointer;
+        width: 100%;
+        font-size: 11px;
+        font-weight: 400;
+        padding: 3px;
+        line-height: 0;
+        height: 20px !important;
+        border-radius: 5px;
+        margin: 0 3px;
+        box-shadow: none;
+
+        :hover{
+          background-color: #fd5c63;
+          color: #white;
+          border: 1px solid #fd5c63;
+        }
+      `
     default:
       return css`
           color: #fd5c63;

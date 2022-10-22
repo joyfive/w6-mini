@@ -1,8 +1,14 @@
 import React from 'react'
+import Box from '../elements/Box'
+import Post from './Post'
 
 const List = () => {
   return (
-    <div>List</div>
+    <Box size="list" color="gray">
+    <Post />
+    <Post /><Post /><Post /><Post /><Post /><Post />
+    </Box>
+    
   )
 }
 
