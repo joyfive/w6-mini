@@ -25,7 +25,7 @@ const StDiv = styled.div`
   border-radius: 10px;
   box-shadow: 0px 2px 10px #e1cccd;
   background-color: white;
-}
+
 
 ${({ size }) => {
     switch (size) {
