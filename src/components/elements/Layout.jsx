@@ -30,7 +30,7 @@ background-color: white;
 const Content = styled.div`
   width: 75%;
   display: block;
-  padding: 80px 40px 100px 250px;
+  padding: 40px 40px 100px 250px;
 
   @media screen and (max-width: 900px) {
     padding: 80px 10px 140px 10px;

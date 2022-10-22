@@ -14,7 +14,6 @@ export default Box;
 const StDiv = styled.div`
   padding: 10px;
   margin: 5px 5px;
-  align-self: center;
   width: 240px;
   height: 100%;
   font-weight: 600;
@@ -36,13 +35,15 @@ ${({ size }) => {
         `;
       case "medium":
         return css`
-          width: 100px;
-          height: 560px !important;
+          width: 70%;
           padding; 10px;
+          margin: 40px 40px 40px 240px;
         `
       case "middle":
         return css`
           width: 90%;
+          min-width: 300px;
+          max-width: 1000px;
           margin: 20px auto;
           height: 40px !important;
           padding: 10px;
@@ -57,13 +58,11 @@ ${({ size }) => {
           width: 260px;
           min-height: 360px !important;
           padding: 15px;
-          margin: 20px auto;
-          display: flex;
-          flex-direction: column;
+          align-self: flex-start;
           `;
         case "list":
         return css`
-          width: 90%;
+          width: 100%;
           min-width: 300px;
           max-width: 1000px;
           display : flex;
@@ -72,8 +71,9 @@ ${({ size }) => {
           justify-content: flex-start;
           overflow: auto;
           min-height: 30px !important;
-          max-height: 640px;
+          max-height: 580px;
           margin: 10px auto;
+          padding: 20px;
         `;
         case "cmt":
         return css`

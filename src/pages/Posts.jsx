@@ -1,23 +1,17 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Box from '../elements/Box'
-import Button from '../elements/Button';
+import Box from '../components/elements/Box'
+import Button from '../components/elements/Button';
 import { HiOutlineHeart, HiHeart, HiOutlineChatAlt2, HiOutlineChevronDown } from "react-icons/hi";
-import Comments from './Comments';
+import Comments from '../components/features/Comments';
+import Layout from '../components/elements/Layout'
 
-const Post = () => {
+const Posts = () => {
 
-  const [useIsDisplay, setUseIsDisplay] = useState("none");
-  const [useToggle, setUseToggle] = useState("")
-  const commentToggle = () => {
-    useIsDisplay === "none" ? setUseIsDisplay("block") : setUseIsDisplay("none");
-  }
-  const icoTurn = () => setUseToggle(!useToggle);
-  const rotate = useToggle ? "rotate(180deg)" : "rotate(0)"
 
   return (
-    <>
-    <Box size="item">
+    <Layout>
+    <Box size="medium">
       <TitleBox>
         <Title>졸리네요...</Title>
         <Like>
@@ -37,16 +31,16 @@ const Post = () => {
         <Content>다들 커피한잔 하고 하시죠🥲</Content>
         <CommentHandle>
           <HiOutlineChatAlt2 className='ico' /> 
-          <CmtTxt>댓글 <HiOutlineChevronDown className="ico" style={{transform: rotate}} onClick={() => {commentToggle(); icoTurn()}} /></CmtTxt>
+          <CmtTxt>댓글</CmtTxt>
         </CommentHandle>
-        <Cmt isDisplay={useIsDisplay}><Comments /></Cmt>  
+        <Comments />
       </Body>
     </Box>
-    </>
+    </Layout>
   )
-}
+};
 
-export default Post
+export default Posts;
 
 const TitleBox = styled.div`
   display: flex;
