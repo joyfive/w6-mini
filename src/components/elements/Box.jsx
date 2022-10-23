@@ -44,6 +44,27 @@ const StDiv = styled.div`
             width: 90%;
           }
         `;
+      case "mytitle":
+        return css`
+          display: flex;
+          width: 90%;
+          min-width: 300px;
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0;
+          height: 50px !important;
+          text-align: center;
+          border-radius: 50px;
+          box-shadow: ;
+
+          @media screen and (max-width: 1080px) {
+            max-width: 600px;
+            padding: 12px;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
+        `;
       case "middle":
         return css`
           width: 90%;
@@ -71,7 +92,7 @@ const StDiv = styled.div`
       case "item":
         return css`
           width: 260px;
-          min-height: 360px !important;
+          min-height: 160px !important;
           padding: 15px;
           align-self: flex-start;
         `;
