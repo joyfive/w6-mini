@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import React from "react";
+import styled, { css } from "styled-components";
 
 const Button = (props) => {
   return (
@@ -7,7 +7,7 @@ const Button = (props) => {
       {props.children}
     </StButton>
   );
-}
+};
 
 export default Button;
 
@@ -26,13 +26,13 @@ const StButton = styled.button`
   box-shadow: 0px 2px 10px #e1cccd;
   background-color: white;
   cursor: pointer;
-&:hover {
-  background-color: #fd5c63;
-  border: 0;
-  color: white;
-}
+  &:hover {
+    background-color: #fd5c63;
+    border: 0;
+    color: white;
+  }
 
-${({ size }) => {
+  ${({ size }) => {
     switch (size) {
       case "full":
         return css`
@@ -47,145 +47,139 @@ ${({ size }) => {
           width: 200px;
           height: 40px !important;
           padding; 5px;
-        `
+        `;
       case "small":
         return css`
-          width: 40px;
-          height: 40px !important;
-          padding: 10px;
+          width: 30px;
+          height: 30px !important;
+          padding: 6px;
         `;
       case "round":
         return css`
-        width: 60px;
-        height: 60px !important;
-        padding: 20px;
-        border-radius: 50px; 
+          width: 60px;
+          height: 60px !important;
+          padding: 20px;
+          border-radius: 50px;
         `;
       default:
-      return css`
-        width: 240px;
-        height: 40px !important;
-        padding: 10px;
-      `;
+        return css`
+          width: 240px;
+          height: 40px !important;
+          padding: 10px;
+        `;
     }
-  }
-}
-${({ color }) => {
-  switch (color) {
-    case "reverse":
-      return css`
+  }}
+  ${({ color }) => {
+    switch (color) {
+      case "reverse":
+        return css`
           color: white;
           background-color: #fd5c63;
-        &:hover {
-          background-color: white;
-          border: 0;
-          color: #fd5c63;
-      
-      }
-      `
+          &:hover {
+            background-color: white;
+            border: 0;
+            color: #fd5c63;
+          }
+        `;
       case "line":
         return css`
-        background-color: white;
-        border: 1px solid #fd5c63;
-      `
+          background-color: white;
+          border: 1px solid #fd5c63;
+        `;
       case "tag-b":
         return css`
-        background-color: white;
-        border: 1px solid #121212;
-        color: #121212;
-        cursor: default;
-        width: 100%;
-        font-size: 13px;
-        font-weight: 400;
-        padding: 3px;
-        line-height: 0;
-        height: 20px !important;
-        border-radius: 5px;
-        margin: 0 3px;
-        box-shadow: none;
-        :hover{
           background-color: white;
-          color: #121212;
           border: 1px solid #121212;
-
-        }
-      `
-        case "tag-red":
+          color: #121212;
+          cursor: default;
+          width: 100%;
+          font-size: 13px;
+          font-weight: 400;
+          padding: 3px;
+          line-height: 0;
+          height: 20px !important;
+          border-radius: 5px;
+          margin: 0 3px;
+          box-shadow: none;
+          :hover {
+            background-color: white;
+            color: #121212;
+            border: 1px solid #121212;
+          }
+        `;
+      case "tag-red":
         return css`
-        background-color: white;
-        border: 1px solid #fd5c63;
-        cursor: default;
-        width: 100%;
-        font-size: 13px;
-        font-weight: 400;
-        padding: 3px;
-        line-height: 0;
-        height: 20px !important;
-        border-radius: 5px;
-        margin: 0 3px;
-        box-shadow: none;
-
-        :hover{
           background-color: white;
-          color: #fd5c63;
           border: 1px solid #fd5c63;
-        }
-      `
+          cursor: default;
+          width: 100%;
+          font-size: 13px;
+          font-weight: 400;
+          padding: 3px;
+          line-height: 0;
+          height: 20px !important;
+          border-radius: 5px;
+          margin: 0 3px;
+          box-shadow: none;
+
+          :hover {
+            background-color: white;
+            color: #fd5c63;
+            border: 1px solid #fd5c63;
+          }
+        `;
       case "cmt-b":
         return css`
-        background-color: white;
-        border: 1px solid #121212;
-        color: #121212;
-        cursor: pointer;
-        width: 100%;
-        font-size: 11px;
-        font-weight: 400;
-        padding: 3px;
-        line-height: 0;
-        height: 20px !important;
-        border-radius: 5px;
-        margin: 0 3px;
-        box-shadow: none;
-        :hover{
-          background-color: #333;
-          color: white;
-          border: 1px solid #333;
-        }
-
-      `
-        case "cmt-red":
+          background-color: white;
+          border: 1px solid #121212;
+          color: #121212;
+          cursor: pointer;
+          width: 100%;
+          font-size: 11px;
+          font-weight: 400;
+          padding: 3px;
+          line-height: 0;
+          height: 20px !important;
+          border-radius: 5px;
+          margin: 0 3px;
+          box-shadow: none;
+          :hover {
+            background-color: #333;
+            color: white;
+            border: 1px solid #333;
+          }
+        `;
+      case "cmt-red":
         return css`
-        background-color: white;
-        border: 1px solid #fd5c63;
-        cursor: pointer;
-        width: 100%;
-        font-size: 11px;
-        font-weight: 400;
-        padding: 3px;
-        line-height: 0;
-        height: 20px !important;
-        border-radius: 5px;
-        margin: 0 3px;
-        box-shadow: none;
-
-        :hover{
-          background-color: #fd5c63;
-          color: #white;
+          background-color: white;
           border: 1px solid #fd5c63;
-        }
-      `
-    default:
-      return css`
+          cursor: pointer;
+          width: 100%;
+          font-size: 11px;
+          font-weight: 400;
+          padding: 3px;
+          line-height: 0;
+          height: 20px !important;
+          border-radius: 5px;
+          margin: 0 3px;
+          box-shadow: none;
+
+          :hover {
+            background-color: #fd5c63;
+            color: #white;
+            border: 1px solid #fd5c63;
+          }
+        `;
+      default:
+        return css`
           color: #fd5c63;
           background-color: white;
-        &:hover {
-          background-color: #fd5c63;
-          border: 0;
-          color: white;
-      
-      }
-      `
-}
-}
-}
-`
+          &:hover {
+            background-color: #fd5c63;
+            border: 0;
+            color: white;
+          }
+        `;
+    }
+  }}
+`;
