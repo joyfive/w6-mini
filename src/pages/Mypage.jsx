@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/elements/Layout";
 import Box from "../components/elements/Box";
 import Button from "../components/elements/Button";
 import Comments from "../components/features/Comments";
 
-import { HiPencilAlt } from "react-icons/hi";
+import { HiPencilAlt, HiPencil } from "react-icons/hi";
 import List from "../components/features/List";
 
 const Mypage = () => {
-  const [usePost, setUsePost] = useState();
-  const [useCmt, setUseCmt] = useState();
+  const [usePost, setUsePost] = useState("block");
+  const [useCmt, setUseCmt] = useState("none");
 
   const onPost = () => {
     usePost === "none" ? setUsePost("block") : setUsePost("block");
@@ -25,6 +26,7 @@ const Mypage = () => {
   return (
     <Layout>
       <H1>마이페이지</H1>
+
       <Box size="mytitle" color="reverse">
         <Flex>
           <Left>

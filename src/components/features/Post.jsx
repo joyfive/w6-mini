@@ -30,7 +30,7 @@ const Post = () => {
 
   return (
     <>
-      <Box onClick={onDetail} size="item">
+      <Box size="item">
         <Flex>
           <Handle>
             <HdLi>
@@ -68,9 +68,12 @@ const Post = () => {
           </TagLi>
         </Tag>
         <Hr />
-        <Img src="https://images.unsplash.com/photo-1518057111178-44a106bad636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" />
+        <Img
+          onClick={onDetail}
+          src="https://images.unsplash.com/photo-1518057111178-44a106bad636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
+        />
         <Body>
-          <Content>다들 커피한잔 하고 하시죠🥲</Content>
+          <Content onClick={onDetail}>다들 커피한잔 하고 하시죠🥲</Content>
           <CommentHandle>
             <HiOutlineChatAlt2 className="ico" />
             <CmtTxt>

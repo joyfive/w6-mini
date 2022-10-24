@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { HiHome, HiUser } from "react-icons/hi";
+import { HiHome, HiUser, HiPencil } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+
+import Button from "./Button";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,6 +18,10 @@ const Header = () => {
   };
   const goOur = () => {
     navigate("/list/team");
+  };
+
+  const goEdit = () => {
+    navigate("/editor");
   };
   return (
     <Head>
@@ -33,6 +39,11 @@ const Header = () => {
           <li onClick={goOur}>우리조 이야기</li>
         </Head3>
       </Head1>
+      <Tit>
+        <Button size="round" onClick={goEdit}>
+          <HiPencil />
+        </Button>
+      </Tit>
     </Head>
   );
 };
@@ -100,4 +111,10 @@ const Head3 = styled.div`
     margin-top: 6px;
     display: flex;
   }
+`;
+
+const Tit = styled.div`
+  position: fixed;
+  bottom: 120px;
+  right: 40px;
 `;

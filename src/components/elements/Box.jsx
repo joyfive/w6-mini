@@ -48,7 +48,7 @@ const StDiv = styled.div`
           display: block;
           width: 90%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           margin: 0 auto;
           padding: 0;
           border-radius: 10px;
@@ -57,7 +57,7 @@ const StDiv = styled.div`
           color: #121212 !important;
 
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 610px;
             padding: 12px;
           }
           @media screen and (max-width: 700px) {
@@ -66,9 +66,9 @@ const StDiv = styled.div`
         `;
       case "middle":
         return css`
-          width: 90%;
+          width: 100%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           margin: 20px auto;
           height: 40px !important;
           padding: 10px;
@@ -79,7 +79,7 @@ const StDiv = styled.div`
           border-radius: 50px;
 
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 610px;
             padding: 12px;
             font-size: 16px;
             line-height: 2.5;
@@ -104,7 +104,7 @@ const StDiv = styled.div`
         return css`
           width: 100%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           display: flex;
           flex-flow: row wrap;
           align-content: flex-start;
@@ -115,7 +115,7 @@ const StDiv = styled.div`
           margin: 10px auto;
           padding: 20px;
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 610px;
             padding: 20px;
           }
           @media screen and (max-width: 700px) {
