@@ -51,6 +51,7 @@ const Editor = () => {
         <Button color="reverse" size="medium">등록하기</Button>
     </Btn>
     </Container>
+
   )
 }
 
