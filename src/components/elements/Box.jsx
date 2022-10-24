@@ -14,7 +14,6 @@ export default Box;
 const StDiv = styled.div`
   padding: 10px;
   margin: 5px 5px;
-  width: 240px;
   height: 100%;
   font-weight: 600;
   font-size: 1rem;
@@ -46,16 +45,16 @@ const StDiv = styled.div`
         `;
       case "mytitle":
         return css`
-          display: flex;
+          display: block;
           width: 90%;
           min-width: 300px;
           max-width: 900px;
           margin: 0 auto;
           padding: 0;
-          height: 50px !important;
-          text-align: center;
-          border-radius: 50px;
+          border-radius: 10px;
           box-shadow: ;
+          background-color: #f7f2f4 !important;
+          color: #121212 !important;
 
           @media screen and (max-width: 1080px) {
             max-width: 600px;
@@ -126,9 +125,39 @@ const StDiv = styled.div`
           margin: 10px auto;
           display: block;
         `;
+      case "usercmt":
+        return css`
+          width: 250px;
+          min-height: 10px !important;
+          margin-bottom: 10px;
+          height: 20px;
+          padding: 5px 10px;
+          margin: 10px auto;
+          display: block;
+          border-radius: 0 10px 10px 10px;
+          font-size: 13px;
+          font-weight: 400;
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
+          text-align: center;
+        `;
+      case "round":
+        return css`
+          width: 25px;
+          height: 25px !important;
+          background-color: #fd5c63 !important;
+          color: white !important;
+          line-height: 1.6;
+          font-size: 15px;
+          font-weight: 700;
+          padding: 10px;
+          border-radius: 50px;
+          margin: 0 10px 0 0;
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
+        `;
       default:
         return css`
-          width: 240px;
           height: 30px !important;
           padding: 10px;
           margin: 20px auto;

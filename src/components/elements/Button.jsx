@@ -53,23 +53,11 @@ const StButton = styled.button`
           width: 30px;
           height: 30px !important;
           padding: 6px;
-        `;
-      case "round":
-        return css`
-          width: 50px;
-          height: 50px !important;
-          padding: 10px;
-          border-radius: 50px;
-          margin: 0 10px 0 0;
-          border: 0;
-          cursor: default;
-          box-shadow: 0px 2px 10px #91585b;
 
-          :hover {
-            color: #fd5c63;
-            background-color: white;
-          }
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
         `;
+
       default:
         return css`
           width: 240px;
@@ -121,7 +109,7 @@ const StButton = styled.button`
           background-color: white;
           border: 1px solid #fd5c63;
           cursor: default;
-          width: 100%;
+          width: 40px;
           font-size: 13px;
           font-weight: 400;
           padding: 3px;
