@@ -16,6 +16,7 @@ const Layout = ({children}) => {
   )
 }
 
+
 export default Layout;
 
 const LayoutBox = styled.div`
@@ -36,5 +37,4 @@ const Content = styled.div`
     padding: 80px 10px 140px 10px;
     
   }
-
 `
