@@ -94,6 +94,11 @@ const StDiv = styled.div`
           min-height: 160px !important;
           padding: 15px;
           align-self: flex-start;
+
+          :hover {
+            background-color: #f7f2f4;
+            cursor: pointer;
+          }
         `;
       case "list":
         return css`

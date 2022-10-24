@@ -13,8 +13,15 @@ import Comments from "../components/features/Comments";
 import Layout from "../components/elements/Layout";
 
 const Posts = () => {
+  const goback = () => {
+    window.history.back();
+  };
   return (
     <Layout>
+      <H1>상세보기</H1>
+      <TopBtn>
+        <Button onClick={goback}>돌아가기</Button>
+      </TopBtn>
       <Box size="medium">
         <TitleBox>
           <Title>졸리네요...</Title>
@@ -67,7 +74,15 @@ const Posts = () => {
 };
 
 export default Posts;
+const H1 = styled.h1`
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+`;
 
+const TopBtn = styled.div`
+  text-align: center;
+`;
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;

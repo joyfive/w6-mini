@@ -146,6 +146,7 @@ const H2 = styled.h2`
 
   &:hover {
     color: #fd5c63;
+    cursor: pointer;
   }
   &:checked {
     color: #fd5c63;

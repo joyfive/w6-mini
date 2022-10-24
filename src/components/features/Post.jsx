@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Box from "../elements/Box";
 import Button from "../elements/Button";
@@ -13,6 +14,10 @@ import {
 import Comments from "./Comments";
 
 const Post = () => {
+  const navigate = useNavigate();
+  const onDetail = () => {
+    navigate(`/posts`);
+  };
   const [useIsDisplay, setUseIsDisplay] = useState("none");
   const [useToggle, setUseToggle] = useState("");
   const commentToggle = () => {
@@ -25,7 +30,7 @@ const Post = () => {
 
   return (
     <>
-      <Box size="item">
+      <Box onClick={onDetail} size="item">
         <Flex>
           <Handle>
             <HdLi>
