@@ -3,10 +3,25 @@ import styled from "styled-components";
 import Layout from "../components/elements/Layout";
 import Box from "../components/elements/Box";
 import Button from "../components/elements/Button";
+import Comments from "../components/features/Comments";
 
-import { HiPencilAlt, HiTrash } from "react-icons/hi";
+import { HiPencilAlt } from "react-icons/hi";
+import List from "../components/features/List";
 
 const Mypage = () => {
+  const [usePost, setUsePost] = useState();
+  const [useCmt, setUseCmt] = useState();
+
+  const onPost = () => {
+    usePost === "none" ? setUsePost("block") : setUsePost("block");
+    useCmt === "block" ? setUseCmt("none") : setUseCmt("none");
+  };
+
+  const onCmt = () => {
+    usePost === "block" ? setUsePost("none") : setUsePost("none");
+    useCmt === "none" ? setUseCmt("block") : setUseCmt("block");
+  };
+
   return (
     <Layout>
       <H1>마이페이지</H1>
@@ -39,9 +54,15 @@ const Mypage = () => {
         </Flex>
       </Box>
       <Cate>
-        <H2>내가 쓴 게시글</H2>
-        <H2>내가 쓴 댓글</H2>
+        <H2 onClick={onPost}>내가 쓴 게시글</H2>
+        <H2 onClick={onCmt}>내가 쓴 댓글</H2>
       </Cate>
+      <ShowList display={usePost}>
+        <List></List>
+      </ShowList>
+      <ShowCmt display={useCmt}>
+        <Comments />
+      </ShowCmt>
     </Layout>
   );
 };
@@ -130,4 +151,12 @@ const H2 = styled.h2`
     color: #fd5c63;
     border-bottom: 2px solid #fd5c63;
   }
+`;
+
+const ShowList = styled.div`
+  display: ${(props) => props.display};
+`;
+
+const ShowCmt = styled.div`
+  display: ${(props) => props.display};
 `;

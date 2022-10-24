@@ -7,6 +7,8 @@ import {
   HiHeart,
   HiOutlineChatAlt2,
   HiOutlineChevronDown,
+  HiPencilAlt,
+  HiTrash,
 } from "react-icons/hi";
 import Comments from "./Comments";
 
@@ -24,8 +26,23 @@ const Post = () => {
   return (
     <>
       <Box size="item">
+        <Flex>
+          <Handle>
+            <HdLi>
+              <Button size="small" color="reverse">
+                <HiPencilAlt className="ico" />
+              </Button>
+            </HdLi>
+            <HdLi>
+              <Button size="small" color="reverse">
+                <HiTrash className="ico" />
+              </Button>
+            </HdLi>
+          </Handle>
+        </Flex>
         <TitleBox>
           <Title>졸리네요...</Title>
+
           <Like>
             <Icon>
               <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
@@ -190,4 +207,26 @@ const CmtTxt = styled.div`
 
 const Cmt = styled.div`
   display: ${(props) => props.isDisplay};
+`;
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 0;
+  height: 36px;
+  width: 100%;
+  margin: 0 auto;
+  ul {
+    padding: 0;
+  }
+`;
+
+const Handle = styled.ul`
+  list-style: none;
+  display: flex;
+`;
+
+const HdLi = styled.li`
+  list-style: none;
 `;
