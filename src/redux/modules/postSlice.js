@@ -2,26 +2,48 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  todos: [
-    {
-      id: "0",
-      title: "sample",
-      body: "sample",
-      writer: "sample",
-      isDone: true,
-    },
-  ],
-  todo: {
-    id: "0",
-    title: "",
-    body: "",
-    writer: "test",
-    isDone: false,
+  img: "",
+  post: {
+    title: "제목입니다",
+    contents: "내용입니다",
+    tag: "일상",
   },
+  isLoading: false,
+  error: null,
 };
 
-// export const __getTodos = createAsyncThunk(
-//   "todos/getTodos", //type
+export const addPost = createAsyncThunk(
+  "posts/post", //type
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL_POST}`,
+        payload
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getDetail = createAsyncThunk(
+  "posts/{postId}", //type
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL_POST}/api/posts/${payload}`
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 3가지 조건 Params로 전달
+// export const getPosts = createAsyncThunk(
+//   "/api/posts/", //type
 //   async (payload, thunkAPI) => {
 //     try {
 //       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
@@ -105,30 +127,16 @@ const initialState = {
 //   }
 // );
 
-// export const __getID = createAsyncThunk(
-//   "todos/getID", //type
-//   async (payload, thunkAPI) => {
-//     try {
-//       const { data } = await axios.get(
-//         `${process.env.REACT_APP_API_URL_TODOS}/${payload}`
-//       );
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
-
-// export const todosSlice = createSlice({
-//   name: "todos",
-//   initialState,
-//   reducers: {
-//     getID(state, action) {
-//       state.todo = state.todos.find((todo) => {
-//         return todo.id === action.payload;
-//       });
-//     },
-//   },
+export const postSlice = createSlice({
+  name: "post",
+  initialState,
+  reducers: {
+    getDetail(state, action) {
+      state.post = state.posts.find((post) => {
+        return post.id === action.payload;
+      });
+    },
+  },
 
   extraReducers: {
     // //-__getTodos-
@@ -145,20 +153,19 @@ const initialState = {
     //   state.isSuccess = false;
     //   state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     // },
-    // //-__addTodo-
-    // [__addTodo.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__addTodo.fulfilled]: (state, action) => {
-    //   state.todos = action.payload;
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // },
-    // [__addTodo.rejected]: (state, action) => {
-    //   state.error = action.payload;
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // },
+    //-addPost-
+    [addPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.post = [...state.post, { ...action.payload }];
+    },
+    [addPost.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+      state.isSuccess = false;
+    },
     // //-__deleteTodo-
     // [__deleteTodo.pending]: (state) => {
     //   state.isLoading = true;
@@ -195,20 +202,20 @@ const initialState = {
     //   state.isLoading = false;
     //   state.error = action.payload;
     // },
-    // //-__getID
-    // [__getID.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__getID.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.todo = action.payload;
-    // },
-    // [__getID.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
+    //-getDetail
+    [getDetail.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getDetail.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.post = action.payload;
+    },
+    [getDetail.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { getID } = todosSlice.actions;
-export default todosSlice.reducer;
+// export const { getDetail, addPost } = postSlice.actions;
+export default postSlice.reducer;

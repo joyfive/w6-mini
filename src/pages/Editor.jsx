@@ -1,10 +1,101 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../redux/modules/postSlice";
+import useInput from "../hooks/useInput";
 import Button from "../components/elements/Button";
 import Input from "../components/elements/Input";
 import styled from "styled-components";
 import Layout from "../components/elements/Layout";
+import { useNavigate } from "react-router-dom";
 
 const Editor = () => {
+  const { isSuccess, error } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // img
+  const [img, setImg] = useState({
+    img_file: "",
+    preview_URL: "img/default_img.png",
+  });
+
+  const imgInput = useRef();
+
+  const saveImg = (e) => {
+    const fileReader = new FileReader();
+
+    if (e.target.files[0]) {
+      fileReader.readAsDataURL(e.target.files[0]);
+    }
+    fileReader.onload = () => {
+      setImg({ img_file: e.target.files[0], preview_URL: fileReader.result });
+    };
+  };
+  //뒤로가기
+
+  const goback = () => {
+    window.history.back();
+  };
+
+  //reset
+  const onReset = () => {
+    setPostInput({
+      title: "",
+      contents: "",
+      tag: "",
+      img: "",
+    });
+  };
+  //커스텀 훅 사용
+  const [postInput, setPostInput, PostInputHandle] = useInput({
+    title: "제목입니다",
+    tag: "diary",
+    img: "",
+    contents: "내용입니다",
+  });
+
+  //validation
+  const validateForm = () => {
+    let validated = true;
+    if (
+      postInput.title === "" ||
+      postInput.contents === "" ||
+      postInput.tag === ""
+    ) {
+      validated = false;
+    }
+    return validated;
+  };
+
+  const OnPost = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      if (
+        postInput.title.trim() === "" ||
+        postInput.contents.trim() === "" ||
+        postInput.tag === ""
+      )
+        return;
+      dispatch(
+        addPost({
+          title: postInput.title,
+          tag: postInput.tag,
+          contents: postInput.contents,
+          img: img.preview_URL,
+        }),
+        onReset()
+      );
+      //
+    }
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/list/team");
+    } else {
+      if (error !== undefined) console.log(error);
+    }
+  }, [isSuccess, error, navigate]);
+
   return (
     <Layout>
       <Container>
@@ -15,42 +106,86 @@ const Editor = () => {
         <AllTextBox>
           <LabelInput>
             <label>제목</label>
-            <Input color="line" size="full" />
+            <Input
+              type="text"
+              maxLength="10"
+              value={postInput.title || ""}
+              onChange={PostInputHandle}
+              color="line"
+              size="full"
+            />
           </LabelInput>
 
           <FileBox>
             <label>첨부파일</label>
             <FileLabel for="input-file">파일열기</FileLabel>
-            <input id="input-file" type="file" style={{ display: "none" }} />
+            <input
+              onClick={(e) => (e.target.value = null)}
+              ref={imgInput}
+              onChange={saveImg}
+              id="input-file"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+            />
           </FileBox>
 
           <RadioBox>
             <label>태그</label>
             <LabelBox>
-              <Radio id="radio1" type="radio" name="account_tag" />
+              <Radio
+                value={postInput.tag || "diary"}
+                onChange={PostInputHandle}
+                id="radio1"
+                type="radio"
+                name="account_tag"
+              />
               <label for="radio1">일상</label>
             </LabelBox>
             <LabelBox>
-              <Radio id="radio2" type="radio" name="account_tag" />
+              <Radio
+                value={postInput.tag || "question"}
+                onChange={PostInputHandle}
+                id="radio2"
+                type="radio"
+                name="account_tag"
+              />
               <label for="radio2">질문</label>
             </LabelBox>
             <LabelBox>
-              <Radio id="radio3" type="radio" name="account_tag" />
+              <Radio
+                value={postInput.tag || "share"}
+                onChange={PostInputHandle}
+                id="radio3"
+                type="radio"
+                name="account_tag"
+              />
               <label for="radio3">공유</label>
             </LabelBox>
             <LabelBox>
-              <Radio id="radio4" type="radio" name="account_tag" />
+              <Radio
+                value={postInput.tag || "notice"}
+                onChange={PostInputHandle}
+                id="radio4"
+                type="radio"
+                name="account_tag"
+              />
               <label for="radio4">공지</label>
             </LabelBox>
           </RadioBox>
 
           <label>내용</label>
-          <TextBox />
+          <TextBox
+            value={postInput.contents || ""}
+            onChange={PostInputHandle}
+          />
         </AllTextBox>
 
         <Btn>
-          <Button size="medium">취소하기</Button>
-          <Button color="reverse" size="medium">
+          <Button onClick={goback} size="medium">
+            취소하기
+          </Button>
+          <Button onClick={OnPost} color="reverse" size="medium">
             등록하기
           </Button>
         </Btn>

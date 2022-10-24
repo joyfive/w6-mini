@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Box from "../components/elements/Box";
 import Button from "../components/elements/Button";
+import { getDetail } from "../redux/modules/postSlice";
+import { useParams } from "react-router-dom";
 import {
   HiOutlineHeart,
   HiHeart,
@@ -13,6 +16,14 @@ import Comments from "../components/features/Comments";
 import Layout from "../components/elements/Layout";
 
 const Posts = () => {
+  const dispatch = useDispatch();
+  const init = useSelector((state) => state.post);
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getDetail(Number(id)));
+  }, [dispatch, id]);
+
   const goback = () => {
     window.history.back();
   };
