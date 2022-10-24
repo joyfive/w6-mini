@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home"
 import Editor from "../pages/Editor";
-import Post from "../pages/Post";
+import Posts from "../pages/Posts";
 import AllList from "../pages/AllList";
 import TeamList from "../pages/TeamList";
 import Signin from "../pages/Signin";
@@ -25,7 +25,7 @@ const Router = () => {
         <Route path="/list" element={<AllList />} />
         <Route path="/list/team" element={<TeamList />} />
         <Route path="/Editor" element={<Editor />} />
-        <Route path="/posts/:id" element={<Post />} />
+        <Route path="/posts" element={<Posts />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage" element={<Mypage />} />
@@ -36,3 +36,4 @@ const Router = () => {
 
 export default Router;
 
+{/* <Route path="/posts/:id" element={<Posts />} /> */}

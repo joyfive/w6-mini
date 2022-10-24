@@ -1,56 +1,50 @@
-import React from 'react'
-import Button from '../components/elements/Button'
-import Input from '../components/elements/Input'
-import Layout from '../components/elements/Layout'
+import React from "react";
+import Button from "../components/elements/Button";
+import Input from "../components/elements/Input";
+import Layout from "../components/elements/Layout";
 
-import Styled from 'styled-components'
-
+import Styled from "styled-components";
+import Box from "../components/elements/Box";
+import styled from "styled-components";
 
 const Home = () => {
   return (
     <Layout>
-    <Div>Home<br />
-      <Button>안녕하세요</Button>
-      <Button size="full">안녕하세요</Button><br />
-      <Button size="large">안녕하세요</Button><br />
-      <Button size="medium">안녕하세요</Button><br />
-      <Button size="small">안</Button><br />
-      <Button size="round">안</Button><br />
-
-      <Button color="reverse">안녕하세요</Button><br />
-      <Button color="reverse" size="full">안녕하세요</Button><br />
-      <Button color="reverse" size="large">안녕하세요</Button><br />
-      <Button color="reverse" size="medium">안녕하세요</Button><br />
-      <Button color="reverse" size="small">안</Button><br />
-      <Button color="reverse" size="round">안</Button><br />
-
-      <Button color="line">안녕하세요</Button>
-      <Button color="line" size="full">안녕하세요</Button><br />
-      <Button color="line" size="large">안녕하세요</Button><br />
-      <Button color="line" size="medium">안녕하세요</Button><br />
-      <Button color="line" size="small">안</Button><br />
-      <Button color="line" size="round">안</Button><br />
-
-      <Input></Input>
-      <Input size="full"></Input> <br />
-      <Input size="large"></Input> <br />
-      <Input size="medium"></Input><br />
-      <Input color="gray"></Input><br />
-      <Input color="gray" size="full"></Input><br />
-      <Input color="gray" size="large"></Input><br />
-      <Input color="gray" size="medium"></Input><br />
-      <Input color="line"></Input><br />
-      <Input color="line" size="full"></Input><br />
-      <Input color="line" size="large"></Input><br />
-      <Input color="line" size="medium"></Input><br />
-      </Div>
-      </Layout>
-  )
-}
+      <H1>항해99</H1>
+      <Box size="mytitle" color="reverse">
+        <Flex>
+          <Box size="small" color="reverse">
+            D-day
+          </Box>
+          <Txt>오늘 안되면, 내일, 내일도 안되면 될때까지 TRY👊 해봅시다!</Txt>
+        </Flex>
+      </Box>
+    </Layout>
+  );
+};
 
 export default Home;
 
-const Div = Styled.div`
-  width: 90%;
-  margin: 0 auto;
-`
+const H1 = styled.h1`
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+`;
+
+const Flex = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+  }
+`;
+
+const Txt = styled.div`
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  width: 75%;
+`;

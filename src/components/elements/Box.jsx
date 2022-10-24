@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import React from "react";
+import styled, { css } from "styled-components";
 
 const Box = (props) => {
   return (
@@ -7,15 +7,13 @@ const Box = (props) => {
       {props.children}
     </StDiv>
   );
-}
+};
 
 export default Box;
 
 const StDiv = styled.div`
   padding: 10px;
   margin: 5px 5px;
-  align-self: center;
-  width: 240px;
   height: 100%;
   font-weight: 600;
   font-size: 1rem;
@@ -25,9 +23,8 @@ const StDiv = styled.div`
   border-radius: 10px;
   box-shadow: 0px 2px 10px #e1cccd;
   background-color: white;
-}
 
-${({ size }) => {
+  ${({ size }) => {
     switch (size) {
       case "cont":
         return css`
@@ -36,46 +33,91 @@ ${({ size }) => {
         `;
       case "medium":
         return css`
-          width: 100px;
-          height: 560px !important;
+          width: 50%;
           padding; 10px;
-        `
+          margin: 40px auto 40px auto;
+          @media screen and (max-width:900px) {
+            width: 80%;
+          }
+          @media scree and (max-width:600px) {
+            width: 90%;
+          }
+        `;
+      case "mytitle":
+        return css`
+          display: block;
+          width: 90%;
+          min-width: 300px;
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0;
+          border-radius: 10px;
+          box-shadow: ;
+          background-color: #f7f2f4 !important;
+          color: #121212 !important;
+
+          @media screen and (max-width: 1080px) {
+            max-width: 600px;
+            padding: 12px;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
+        `;
       case "middle":
         return css`
           width: 90%;
+          min-width: 300px;
+          max-width: 900px;
           margin: 20px auto;
           height: 40px !important;
           padding: 10px;
           text-align: center;
           font-size: 20px;
-          font-weight: 500;
+          font-weight: 600;
           line-height: 2;
           border-radius: 50px;
+
+          @media screen and (max-width: 1080px) {
+            max-width: 600px;
+            padding: 12px;
+            font-size: 16px;
+            line-height: 2.5;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
         `;
       case "item":
         return css`
           width: 260px;
-          min-height: 360px !important;
+          min-height: 160px !important;
           padding: 15px;
-          margin: 20px auto;
-          display: flex;
-          flex-direction: column;
-          `;
-        case "list":
+          align-self: flex-start;
+        `;
+      case "list":
         return css`
-          width: 90%;
+          width: 100%;
           min-width: 300px;
-          max-width: 1000px;
-          display : flex;
+          max-width: 900px;
+          display: flex;
           flex-flow: row wrap;
           align-content: flex-start;
           justify-content: flex-start;
           overflow: auto;
           min-height: 30px !important;
-          max-height: 640px;
+          max-height: 580px;
           margin: 10px auto;
+          padding: 20px;
+          @media screen and (max-width: 1080px) {
+            max-width: 600px;
+            padding: 20px;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
         `;
-        case "cmt":
+      case "cmt":
         return css`
           width: 95%;
           min-height: 30px !important;
@@ -83,39 +125,67 @@ ${({ size }) => {
           margin: 10px auto;
           display: block;
         `;
+      case "usercmt":
+        return css`
+          width: 250px;
+          min-height: 10px !important;
+          margin-bottom: 10px;
+          height: 20px;
+          padding: 5px 10px;
+          margin: 10px auto;
+          display: block;
+          border-radius: 0 10px 10px 10px;
+          font-size: 13px;
+          font-weight: 400;
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
+          text-align: center;
+        `;
+      case "round":
+        return css`
+          width: 25px;
+          height: 25px !important;
+          background-color: #fd5c63 !important;
+          color: white !important;
+          line-height: 1.6;
+          font-size: 15px;
+          font-weight: 700;
+          padding: 10px;
+          border-radius: 50px;
+          margin: 0 10px 0 0;
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
+        `;
       default:
-      return css`
-        width: 240px;
-        height: 30px !important;
-        padding: 10px;
-        margin: 20px auto;
-      `;
+        return css`
+          height: 30px !important;
+          padding: 10px;
+          margin: 20px auto;
+        `;
     }
-  }
-}
+  }}
 
-${({ color }) => {
-  switch (color) {
+  ${({ color }) => {
+    switch (color) {
       case "line":
-      return css`
-        background-color: white;
-        border: 1px solid #fd5c63;
-      `
+        return css`
+          background-color: white;
+          border: 1px solid #fd5c63;
+        `;
       case "gray":
-      return css`
-        background-color: #f7f2f4;
-      `
+        return css`
+          background-color: #f7f2f4;
+        `;
       case "reverse":
-      return css`
-        background-color: #fd5c63;
-        color: white;
-      `
-    default:
-      return css`
+        return css`
+          background-color: #fd5c63;
+          color: white;
+        `;
+      default:
+        return css`
           color: #141414;
           background-color: #fff;
-      `;
-}
-}
-}
-`
+        `;
+    }
+  }}
+`;
