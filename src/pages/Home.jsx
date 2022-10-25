@@ -1,29 +1,40 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getHome } from "../redux/modules/homeSlice";
 import Button from "../components/elements/Button";
-import Input from "../components/elements/Input";
 import Layout from "../components/elements/Layout";
 import Box from "../components/elements/Box";
 import styled from "styled-components";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const home = useSelector((state) => state.home.home);
+  const { state } = useLocation();
+
+  useEffect(() => {
+    dispatch(getHome(state));
+  }, [dispatch, state]);
+
   const navigate = useNavigate();
+
   const goSignIn = () => {
     navigate("/signin");
   };
+
   const goSignUp = () => {
     navigate("/signup");
   };
+  console.log(home);
   return (
     <Layout>
       <H1>항해99</H1>
       <Box size="mytitle" color="reverse">
         <Flex>
-          <Box size="small" color="reverse">
-            D-day
+          <Box size="home" color="reverse">
+            D{home.dday}
           </Box>
-          <Txt>오늘 안되면, 내일, 내일도 안되면 될때까지 TRY👊 해봅시다!</Txt>
+          <Txt>{home.goodWord}</Txt>
         </Flex>
       </Box>
       <BtnGroup>
@@ -62,6 +73,9 @@ const Txt = styled.div`
   font-weight: 600;
   text-align: center;
   width: 75%;
+  @media screen and (max-width: 700px) {
+    margin-top: 20px;
+  }
 `;
 
 const BtnGroup = styled.div`

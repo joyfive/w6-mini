@@ -115,11 +115,11 @@ const StDiv = styled.div`
           margin: 10px auto;
           padding: 20px;
           @media screen and (max-width: 1080px) {
-            max-width: 610px;
+            max-width: 620px;
             padding: 20px;
           }
           @media screen and (max-width: 700px) {
-            max-width: 300px;
+            max-width: 31 0px;
           }
         `;
       case "cmt":
@@ -144,6 +144,15 @@ const StDiv = styled.div`
           font-weight: 400;
           border: 0;
           box-shadow: 0px 2px 10px #e1cccd;
+          text-align: center;
+        `;
+      case "home":
+        return css`
+          width: 40px;
+          height: 40px;
+          border-radius: 30px;
+          font-size: 18px;
+          line-height: 2.5;
           text-align: center;
         `;
       case "round":

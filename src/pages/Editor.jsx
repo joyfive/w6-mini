@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost } from "../redux/modules/postSlice";
+import { combineReducers } from "redux";
+import { addPost } from "../redux/modules/postSilice";
 import useInput from "../hooks/useInput";
 import Button from "../components/elements/Button";
 import Input from "../components/elements/Input";
@@ -48,10 +49,12 @@ const Editor = () => {
   };
   //커스텀 훅 사용
   const [postInput, setPostInput, PostInputHandle] = useInput({
-    title: "제목입니다",
-    tag: "diary",
     img: "",
-    contents: "내용입니다",
+    post: {
+      title: "제목입니다",
+      tag: "diary",
+      contents: "내용입니다",
+    },
   });
 
   //validation
@@ -77,12 +80,14 @@ const Editor = () => {
       )
         return;
       dispatch(
-        addPost({
-          title: postInput.title,
-          tag: postInput.tag,
-          contents: postInput.contents,
-          img: img.preview_URL,
-        }),
+        addPost(
+          { img: img.preview_URL },
+          {
+            title: postInput.title,
+            tag: postInput.tag,
+            contents: postInput.contents,
+          }
+        ),
         onReset()
       );
       //

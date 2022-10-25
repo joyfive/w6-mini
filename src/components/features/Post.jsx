@@ -13,18 +13,24 @@ import {
 } from "react-icons/hi";
 import Comments from "./Comments";
 
-const Post = () => {
+const Post = ({ post }) => {
   const navigate = useNavigate();
+
+  console.log(post);
+
   const onDetail = () => {
-    navigate(`/posts`);
+    navigate(`/posts/${post.id}`);
   };
+
   const [useIsDisplay, setUseIsDisplay] = useState("none");
   const [useToggle, setUseToggle] = useState("");
+
   const commentToggle = () => {
     useIsDisplay === "none"
       ? setUseIsDisplay("block")
       : setUseIsDisplay("none");
   };
+
   const icoTurn = () => setUseToggle(!useToggle);
   const rotate = useToggle ? "rotate(180deg)" : "rotate(0)";
 
@@ -46,38 +52,36 @@ const Post = () => {
           </Handle>
         </Flex>
         <TitleBox>
-          <Title>졸리네요...</Title>
-
+          <Title>{post.title}</Title>
           <Like>
             <Icon>
               <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
             </Icon>
-            <LikeTxt>12</LikeTxt>
+            <LikeTxt>{post.likeCount}</LikeTxt>
           </Like>
         </TitleBox>
         <Tag>
-          <Author>@오기쁨</Author>
+          <Author>@ {post.accountName}</Author>
           <TagLi>
-            <Button color="tag-b">3조</Button>
+            <Button color="tag-b">{post.accountTeam}</Button>
           </TagLi>
           <TagLi>
-            <Button color="tag-b">팀원</Button>
+            <Button color="tag-b">
+              {post.accountLead === true ? "팀장" : "팀원"}
+            </Button>
           </TagLi>
           <TagLi>
-            <Button color="tag-red">일상</Button>
+            <Button color="tag-red">{post.tag}</Button>
           </TagLi>
         </Tag>
         <Hr />
-        <Img
-          onClick={onDetail}
-          src="https://images.unsplash.com/photo-1518057111178-44a106bad636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80"
-        />
+        <Img onClick={onDetail} src={post.img} />
         <Body>
-          <Content onClick={onDetail}>다들 커피한잔 하고 하시죠🥲</Content>
+          <Content onClick={onDetail}>{post.contents}</Content>
           <CommentHandle>
             <HiOutlineChatAlt2 className="ico" />
             <CmtTxt>
-              댓글{" "}
+              댓글
               <HiOutlineChevronDown
                 className="ico"
                 style={{ transform: rotate }}
@@ -93,6 +97,7 @@ const Post = () => {
           </Cmt>
         </Body>
       </Box>
+      ;
     </>
   );
 };

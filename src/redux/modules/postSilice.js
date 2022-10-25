@@ -2,39 +2,33 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  img: "",
-  post: {
-    title: "제목입니다",
-    contents: "내용입니다",
-    tag: "일상",
-  },
-  isLoading: false,
-  error: null,
+  posts: [],
 };
 
 export const addPost = createAsyncThunk(
   "posts/post", //type
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.post(
+      const data = await axios.post(
         `${process.env.REACT_APP_API_URL_POST}`,
         payload
       );
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
+//ID로
 export const getDetail = createAsyncThunk(
-  "posts/{postId}", //type
+  "posts/getDetail", //type
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL_POST}/api/posts/${payload}`
+      const data = await axios.get(
+        `${process.env.REACT_APP_API_URL_POST}/posts/${payload}`
       );
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -42,43 +36,17 @@ export const getDetail = createAsyncThunk(
 );
 
 // 3가지 조건 Params로 전달
-// export const getPosts = createAsyncThunk(
-//   "/api/posts/", //type
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
-//       return thunkAPI.fulfillWithValue(data.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
-
-// export const __addTodo = createAsyncThunk(
-//   "todos/addTodo", //type
-//   async (payload, thunkAPI) => {
-//     try {
-//       console.log("redux", payload);
-
-//       //id Max값 여기서 구현해봄
-//       const getTodos = await axios.get(
-//         `${process.env.REACT_APP_API_URL_TODOS}`
-//       );
-//       const todosIdArr = getTodos.data.map((e) => {
-//         return e.id;
-//       });
-//       await axios.post(`${process.env.REACT_APP_API_URL_TODOS}`, {
-//         id: Math.max(todosIdArr) + 1,
-//         isDone: false,
-//         ...payload,
-//       });
-//       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
-//       return thunkAPI.fulfillWithValue(data.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+export const getList = createAsyncThunk(
+  "post/getList", //type
+  async (_, thunkAPI) => {
+    try {
+      const data = await axios.get(`http://localhost:3001/posts`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 // export const __deleteTodo = createAsyncThunk(
 //   "todos/deleteTodo", //type
@@ -128,38 +96,32 @@ export const getDetail = createAsyncThunk(
 // );
 
 export const postSlice = createSlice({
-  name: "post",
+  name: "posts",
   initialState,
-  reducers: {
-    getDetail(state, action) {
-      state.post = state.posts.find((post) => {
-        return post.id === action.payload;
-      });
-    },
-  },
+  reducers: {},
 
   extraReducers: {
-    // //-__getTodos-
-    // [__getTodos.pending]: (state) => {
-    //   state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-    // },
-    // [__getTodos.fulfilled]: (state, action) => {
-    //   state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-    //   state.isSuccess = false;
-    //   state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
-    // },
-    // [__getTodos.rejected]: (state, action) => {
-    //   state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-    //   state.isSuccess = false;
-    //   state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-    // },
+    //-__getTodos-
+    [getList.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [getList.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false;
+      state.posts = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+    },
+    [getList.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false;
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
     //-addPost-
     [addPost.pending]: (state) => {
       state.isLoading = true;
     },
     [addPost.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.post = [...state.post, { ...action.payload }];
+      state.posts = [...state.post, { ...action.payload }];
     },
     [addPost.rejected]: (state, action) => {
       state.error = action.payload;
@@ -208,7 +170,7 @@ export const postSlice = createSlice({
     },
     [getDetail.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.post = action.payload;
+      state.posts = action.payload;
     },
     [getDetail.rejected]: (state, action) => {
       state.isLoading = false;
@@ -217,5 +179,5 @@ export const postSlice = createSlice({
   },
 });
 
-// export const { getDetail, addPost } = postSlice.actions;
+// export const { getDetail, addPost, getList } = postSlice.actions;
 export default postSlice.reducer;

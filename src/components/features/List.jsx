@@ -1,17 +1,25 @@
-import React from 'react'
-import Box from '../elements/Box'
-import Post from './Post'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Box from "../elements/Box";
+import Post from "./Post";
+import { getList } from "../../redux/modules/postSilice";
 
 const List = () => {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
+  console.log(posts);
+
+  useEffect(() => {
+    dispatch(getList());
+  }, [dispatch]);
+
   return (
     <Box size="list" color="gray">
- 
-    <Post />
-    <Post /><Post /><Post /><Post /><Post /><Post />
-
+      {posts.map((post) => {
+        <Post post={post} key={post.postId} posts={posts} />;
+      })}
     </Box>
-    
-  )
-}
+  );
+};
 
-export default List
+export default List;

@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import home from "../modules/homeSlice";
+import posts from "../modules/postSilice";
 // import todos from "../modules/todos.js";
 // import comments from "../modules/comments.js";
 
 const store = configureStore({
   reducer: {
+    home,
+    posts,
     // todos,
     // comments,
   },

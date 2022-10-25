@@ -12,6 +12,7 @@ root.render(
   // 스토어 생성
   <Provider store={store}>
     <React.StrictMode>
+      <GlobalStyle />
       <App />
     </React.StrictMode>
   </Provider>,

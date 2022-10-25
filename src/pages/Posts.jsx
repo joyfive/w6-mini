@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Box from "../components/elements/Box";
 import Button from "../components/elements/Button";
-import { getDetail } from "../redux/modules/postSlice";
-import { useParams } from "react-router-dom";
+import { getDetail } from "../redux/modules/postSilice";
 import {
   HiOutlineHeart,
   HiHeart,
@@ -17,7 +17,7 @@ import Layout from "../components/elements/Layout";
 
 const Posts = () => {
   const dispatch = useDispatch();
-  const init = useSelector((state) => state.post);
+  const posts = useSelector((state) => state.posts);
   const { id } = useParams();
 
   useEffect(() => {
@@ -33,53 +33,57 @@ const Posts = () => {
       <TopBtn>
         <Button onClick={goback}>돌아가기</Button>
       </TopBtn>
-      <Box size="medium">
-        <TitleBox>
-          <Title>졸리네요...</Title>
-          <Like>
-            <Icon>
-              <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
-            </Icon>
-            <LikeTxt>12</LikeTxt>
-          </Like>
-        </TitleBox>
-        <Flex>
-          <Tag>
-            <Author>@오기쁨</Author>
-            <TagLi>
-              <Button color="tag-b">3조</Button>
-            </TagLi>
-            <TagLi>
-              <Button color="tag-b">팀원</Button>
-            </TagLi>
-            <TagLi>
-              <Button color="tag-red">일상</Button>
-            </TagLi>
-          </Tag>
-          <Handle>
-            <HdLi>
-              <Button size="small">
-                <HiPencilAlt className="ico" />
-              </Button>
-            </HdLi>
-            <HdLi>
-              <Button size="small">
-                <HiTrash className="ico" />
-              </Button>
-            </HdLi>
-          </Handle>
-        </Flex>
-        <Hr />
-        <Img src="https://images.unsplash.com/photo-1518057111178-44a106bad636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80" />
-        <Body>
-          <Content>다들 커피한잔 하고 하시죠🥲</Content>
-          <CommentHandle>
-            <HiOutlineChatAlt2 className="ico" />
-            <CmtTxt>댓글</CmtTxt>
-          </CommentHandle>
-          <Comments />
-        </Body>
-      </Box>
+      {posts.map((post) => {
+        <Box size="medium">
+          <TitleBox>
+            <Title>{post.title}</Title>
+            <Like>
+              <Icon>
+                <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
+              </Icon>
+              <LikeTxt>{post.postLikes}</LikeTxt>
+            </Like>
+          </TitleBox>
+          <Flex>
+            <Tag>
+              <Author>@{post.accountName}</Author>
+              <TagLi>
+                <Button color="tag-b">{post.accountTeam}</Button>
+              </TagLi>
+              <TagLi>
+                <Button color="tag-b">
+                  {post.accountLead ? "팀장" : "팀원"}
+                </Button>
+              </TagLi>
+              <TagLi>
+                <Button color="tag-red">{post.tag}</Button>
+              </TagLi>
+            </Tag>
+            <Handle>
+              <HdLi>
+                <Button size="small">
+                  <HiPencilAlt className="ico" />
+                </Button>
+              </HdLi>
+              <HdLi>
+                <Button size="small">
+                  <HiTrash className="ico" />
+                </Button>
+              </HdLi>
+            </Handle>
+          </Flex>
+          <Hr />
+          <Img src={post.img} />
+          <Body>
+            <Content>{post.contents}</Content>
+            <CommentHandle>
+              <HiOutlineChatAlt2 className="ico" />
+              <CmtTxt>댓글</CmtTxt>
+            </CommentHandle>
+            <Comments detailConId={post.id} />
+          </Body>
+        </Box>;
+      })}
     </Layout>
   );
 };
