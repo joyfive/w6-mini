@@ -1,9 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Input from '../components/elements/Input'
 import Button from '../components/elements/Button'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom';
+import { __userLogin } from '../redux/modules/usersSlice';
+import { useDispatch } from 'react-redux';
 
 const Signin = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch
+  const initialState = {
+    accountId: "",
+    accountPw: "",
+  };
+
+  const [login, setLogin] = useState(initialState);
+  const onChangeHandler = (event) => {
+    const {name, value} = event.target
+    setLogin({...login, [name] : value})
+  }
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const obj = {
+      id : 1,
+      accountId: login.accountId,
+      accountPw: login.accountPw,
+    }
+    dispatch(__userLogin(obj))
+  }
+
+
   return (
     <Container>
       <TitleBox>
@@ -14,17 +41,29 @@ const Signin = () => {
       <SigninBox>
         <LabelInput>
           <label>아이디</label>
-          <Input color="line"></Input><br/>
+            <Input 
+              color="line"
+              type="text"
+              name="accountId"
+              value={login.accountId}
+              onChange={onChangeHandler}
+              ></Input><br/>
         </LabelInput>
         <LabelInput2>
           <label>비밀번호</label>
-          <Input color="line"></Input><br/>
+            <Input 
+              color="line"
+              type="password"
+              name="accountPw"
+              value={login.accountPw}
+              onChange={onChangeHandler}
+              ></Input><br/>
         </LabelInput2>
       </SigninBox>
 
       <Btn>
-        <Button size="medium">회원가입</Button>
-        <Button color="reverse" size="medium">로그인</Button>
+        <Button size="medium" onClick={ () => navigate('/signup')}>회원가입</Button>
+        <Button color="reverse" size="medium" onClick={onSubmitHandler}>로그인</Button>
       </Btn>
     </Container>
 

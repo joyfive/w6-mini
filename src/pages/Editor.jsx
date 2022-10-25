@@ -2,8 +2,11 @@ import React from 'react'
 import Button from '../components/elements/Button'
 import Input from '../components/elements/Input'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 const Editor = () => {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <TitleBox>
@@ -47,7 +50,7 @@ const Editor = () => {
     </AllTextBox>
 
     <Btn>
-        <Button size="medium">취소하기</Button>
+        <Button size="medium" onClick={ () => navigate(-1)}>취소하기</Button>
         <Button color="reverse" size="medium">등록하기</Button>
     </Btn>
     </Container>
