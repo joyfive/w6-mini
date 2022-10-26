@@ -10,10 +10,10 @@ export const addPost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios
-        .post(`${process.env.REACT_APP_API_URL}/posts`, payload, {
+        .post(`http://54.180.146.88/api/posts`, payload, {
           headers: {
             enctype: "multipart/form-data",
-            Access_Token: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE`,
+            Access_Token: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY`,
             "Cache-Control": "no-cache",
           },
         })
@@ -48,11 +48,11 @@ export const getList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `http://13.124.45.96/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: {
             Access_Token:
-              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
           },
         }
       )
@@ -67,16 +67,16 @@ export const deletePost = createAsyncThunk(
   "post/deletePost", //type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://13.124.45.96/api/posts/${payload}`, {
+      await axios.delete(`http://54.180.146.88/api/posts/${payload}`, {
         headers: {
           Access_Token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
         },
       })
-      const data = await axios.get(`http://13.124.45.96/api/posts`, {
+      const data = await axios.get(`http://54.180.146.88/api/posts`, {
         headers: {
           Access_Token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
         },
       })
       return thunkAPI.fulfillWithValue(data.data)
@@ -204,5 +204,5 @@ export const postSlice = createSlice({
   },
 })
 
-// export const { getDetail, addPost, getList } = postSlice.actions;
+export const {} = postSlice.actions
 export default postSlice.reducer

@@ -17,11 +17,11 @@ const Header = () => {
     navigate("/list")
   }
   const goOur = () => {
-    navigate("/list/team")
+    navigate("/list/team?sort=createdAt&accountTeam=All&tag=All")
   }
 
   const goEdit = () => {
-    navigate("/editor")
+    navigate("/editor?sort=createdAt&accountTeam=All&tag=All")
   }
   return (
     <Head>

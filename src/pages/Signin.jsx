@@ -26,10 +26,9 @@ const SignIn = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault()
     const obj = {
-      id: 1,
       //임시
-      userid: login.userid,
-      password: login.password,
+      email: login.userid,
+      accountPw: login.password,
     }
     dispatch(accountSignin(obj))
   }

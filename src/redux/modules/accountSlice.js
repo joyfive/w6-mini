@@ -20,38 +20,36 @@ export const accountSignin = createAsyncThunk(
         setCookie("Access_Token", Access_Token)
         // window.localStorage.setItem("refreshToken", refreshToken);
         setCookie("nickname", data.data.data)
-        alert("로그인 성공")
+        alert("환영합니다! C반의 새로운 소식을 만나볼까요?")
         window.location.replace("/list")
       }
 
       return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
-      if (400 < error.data.status && error.data.status < 500) {
+      if (400 <= error.data.status && error.data.status <= 500) {
         window.location.reload()
-        alert("로그인 실패")
+        alert("로그인에 실패했습니다.")
       }
       return thunkAPI.rejectWithValue(error)
     }
   }
 )
 
-// export const accountCheck = createAsyncThunk(
-//   "account/checkId",
-//   // type
-//   async (payload, thunkAPI) => {
-//     try {
-//       const data = await axios.post(
-//         `${process.env.REACT_APP_API_URL}/auth/checkid`,
-//         {
-//           userid: payload,
-//         }
-//       )
-//       return thunkAPI.fulfillWithValue(data.data)
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error)
-//     }
-//   }
-// )
+export const accountCheck = createAsyncThunk(
+  "account/check",
+  // type
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post(`http://13.124.45.96/auth/check`, {
+        email: payload,
+      })
+      alert(data.data.msg)
+      return thunkAPI.fulfillWithValue(data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
 
 export const accountSignup = createAsyncThunk(
   "account/userSignUp",

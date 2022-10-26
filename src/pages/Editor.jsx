@@ -16,11 +16,31 @@ const Editor = () => {
     tag: "",
     contents: "",
   })
-  const selectList = ["일상", "질문", "공유", "공지"]
-  const [tagSelect, setTagSelect] = useState("")
-  const handleSelect = (e) => {
-    setTagSelect(e.target.value)
-  }
+  // 셀렉트박스
+  // const selectList = ["일상", "질문", "공유", "공지"]
+  // const [tagSelect, setTagSelect] = useState("")
+  // const handleSelect = (e) => {
+  //   setTagSelect(e.target.value)
+  // }
+  // const [enItem, setEnItem] = useState("")
+  // switch (setEnItem) {
+  //   case tagSelect === "일상":
+  //     setEnItem("daily")
+  //     break
+  //   case tagSelect === "질문":
+  //     setEnItem("question")
+  //     break
+  //   case tagSelect === "공유":
+  //     setEnItem("shared")
+  //     break
+  //   case tagSelect === "공지":
+  //     setEnItem("notice")
+  //     break
+  // }
+
+  // 셀렉트박스 2트
+  const [tag, setTag] = useState("")
+
   const { isSuccess, error } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -66,15 +86,17 @@ const Editor = () => {
     formData.append("img", imgFile)
     formData.append("title", postInput.title)
     formData.append("contents", postInput.contents)
-    formData.append("tag", postInput.tag)
-
+    formData.append("tag", tag)
+    for (let value of formData.values()) {
+      console.log(value)
+    }
     dispatch(addPost(formData))
     navigate("/list?sort=createdAt&accountTeam=All&tag=All")
   }
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/list/team")
+      navigate("/list?sort=createdAt&accountTeam=All&tag=All")
     } else {
       if (error !== undefined) console.log(error)
     }
@@ -132,12 +154,20 @@ const Editor = () => {
             </label>
           </FileBox>
 
-          <select onChange={handleSelect} value={tagSelect}>
-            {selectList.map((item) => (
-              <option value={item} key={item}>
-                {item}
-              </option>
-            ))}
+          {/* <select onChange={handleSelect} value={tagSelect} name="tag"> */}
+          {/* {selectList.map((item) => ( */}
+          <select
+            name="tag"
+            onChange={(e) => {
+              setTag(e.target.value)
+            }}
+          >
+            <option value={"tag"}> --태그 선택--</option>
+            <option value={"daily"}>일상</option>
+            <option value={"ques"}>질문</option>
+            <option value={"share"}>공유</option>
+            <option value={"notice"}>공지</option>
+            {/* ))} */}
           </select>
 
           <label>내용</label>

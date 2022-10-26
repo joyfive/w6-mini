@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { accountSignup } from "../redux/modules/accountSlice"
+import { accountSignup, accountCheck } from "../redux/modules/accountSlice"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
@@ -13,56 +13,51 @@ import styled from "styled-components"
 const SignUp = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { account, idCheck, nameCheck } = useSelector((state) => state.account)
+  const { account } = useSelector((state) => state.account)
 
   const initialState = {
-    userid: "",
-    nickname: "",
-    password: "",
-    passwordconfirm: "",
+    email: "",
+    accountName: "",
+    accountPw: "",
+    accountPwConfirm: "",
+    accountTeam: "",
+    accountLeader: "",
   }
   const [join, setJoin] = useState(initialState)
 
-  const selectList1 = ["1조", "2조", "3조", "4조", "5조", "6조"]
-  const selectList2 = ["true", "false"]
-  const [team, setTeam] = useState("3조")
-  const [lead, setLead] = useState("false")
-  const handleSelect1 = (e) => {
-    setTeam(e.target.value)
-  }
-  const handleSelect2 = (e) => {
-    setLead(e.target.value)
-  }
+  const [accountTeam, setAccountTeam] = useState("3조")
+  const [accountLeader, setAccountLeader] = useState("false")
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target
     setJoin({ ...join, [name]: value })
   }
   const obj = {
-    id: 1,
-    //임시
-    userid: join.userid,
-    nickname: join.nickname,
-    password: join.password,
-    passwordconfirm: join.passwordconfirm,
+    email: join.email,
+    accountName: join.Name,
+    accountPw: join.accountPw,
+    accountPwConfirm: join.accountPwConfirm,
+    accountTeam: accountTeam,
+    accountLeader: accountLeader,
   }
 
-  // const accountIdCheck = /^[a-z]+[a-z0-9]{5,19}$/g
-  // const passwordCheck = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/
+  const emailCheck = /^[a-z]+[a-z0-9]{5,13}$/g
+  const pwCheck = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/
 
-  // const onCheckId = () => {
-  //   // 수정 필요(true, false로만 받으면 됨. if 필요 없음. dispatch로 받으면 됨)
-  //   dispatch(accountCheck(obj.userid))
-  // }
+  const onCheck = () => {
+    // 수정 필요(true, false로만 받으면 됨. if 필요 없음. dispatch로 받으면 됨)
+    dispatch(accountCheck(obj.email))
+  }
 
-  useEffect(() => {
-    if (idCheck !== undefined) {
-      if (idCheck.success === true) {
-        return alert("사용 가능한 ID입니다.")
-      } else {
-        return alert("이미 사용중인 ID가 있습니다.")
-      }
-    }
-  }, [dispatch, idCheck])
+  // useEffect(() => {
+  //   if (idCheck !== undefined) {
+  //     if (idCheck.success === true) {
+  //       return alert("사용 가능한 ID입니다.")
+  //     } else {
+  //       return alert("이미 사용중인 ID가 있습니다.")
+  //     }
+  //   }
+  // }, [dispatch, idCheck])
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
@@ -132,7 +127,7 @@ const SignUp = () => {
                 color="reverse"
                 size="percent"
                 type="button"
-                // onClick={onCheckId}
+                onClick={onCheck}
               >
                 중복확인
               </Button>
@@ -167,12 +162,19 @@ const SignUp = () => {
             <div>
               <Div>
                 <Txt> 몇조이신가요?🤗</Txt>
-                <select onChange={handleSelect1} value={team}>
-                  {selectList1.map((item) => (
-                    <option value={item} key={item}>
-                      {item}
-                    </option>
-                  ))}
+                <select
+                  name="accountTeam"
+                  onChange={(e) => {
+                    setAccountTeam(e.target.value)
+                  }}
+                >
+                  <option value={""}> --조 선택--</option>
+                  <option value={"1"}>1조</option>
+                  <option value={"2"}>2조</option>
+                  <option value={"3"}>3조</option>
+                  <option value={"4"}>4조</option>
+                  <option value={"5"}>5조</option>
+                  <option value={"6"}>6조</option>
                 </select>
               </Div>
             </div>
@@ -180,12 +182,15 @@ const SignUp = () => {
           <Div>
             <Txt> 팀장님이신가요?</Txt>
 
-            <select onChange={handleSelect2} value={lead}>
-              {selectList2.map((item) => (
-                <option value={item} key={item}>
-                  {item}
-                </option>
-              ))}
+            <select
+              name="accountLeader"
+              onChange={(e) => {
+                setAccountLeader(e.target.value)
+              }}
+            >
+              <option value={""}> --선택-- </option>
+              <option value={"true"}>네</option>
+              <option value={"false"}>아니요</option>
             </select>
           </Div>
           <BtnGroup>
@@ -223,16 +228,15 @@ const Div = styled.div`
   margin: 20px auto;
   text-align: center;
 
-  /* select {
-    margin: 0;
-    padding: 10px 30px;
-    width: 200px;
-    height: 40px;
-    font-size: 14px;
-
-    border-radius: 5px;
-    background-color: #fff;
-  } */
+  select {
+    width: 100%;
+    height: 50px !important;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #fd5c63;
+    box-shadow: 0px 2px 10px #e1cccd;
+    margin: 10px 0;
+  }
 `
 
 const BtnGroup = styled.div`

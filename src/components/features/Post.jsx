@@ -20,6 +20,23 @@ const Post = ({ post, onDelete }) => {
   const [useIsDisplay, setUseIsDisplay] = useState("none")
   const [useToggle, setUseToggle] = useState("")
 
+  //태그 국문 변환용 스테이트
+  const [tag, setTag] = useState("")
+
+  // 국문변환 스위치문
+  // switch (post.tag) {
+  //   case "daily":
+  //     return setTag("일상")
+  //   case "ques":
+  //     return setTag("질문")
+
+  //   case "share":
+  //     return setTag("공유")
+
+  //   case "notice":
+  //     return setTag("공지")
+  // }
+
   const commentToggle = () => {
     useIsDisplay === "none" ? setUseIsDisplay("block") : setUseIsDisplay("none")
   }
@@ -53,7 +70,7 @@ const Post = ({ post, onDelete }) => {
             <Icon>
               <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
             </Icon>
-            <LikeTxt>{post.postLike}</LikeTxt>
+            <LikeTxt>{post.postLikeCount}</LikeTxt>
           </Like>
         </TitleBox>
         <Tag>
