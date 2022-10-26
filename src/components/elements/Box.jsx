@@ -43,6 +43,27 @@ const StDiv = styled.div`
             width: 90%;
           }
         `
+      case "account":
+        return css`
+          display: block;
+          width: 90%;
+          min-width: 300px;
+          max-width: 920px;
+          margin: 0 auto;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: ;
+          background-color: #f7f2f4 !important;
+          color: #121212 !important;
+
+          @media screen and (max-width: 1080px) {
+            max-width: 610px;
+            padding: 12px;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
+        `
       case "mytitle":
         return css`
           display: block;

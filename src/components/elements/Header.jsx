@@ -11,7 +11,7 @@ const Header = () => {
     navigate("/")
   }
   const goMy = () => {
-    navigate("/mypage")
+    navigate("/signin")
   }
   const goAll = () => {
     navigate("/list")

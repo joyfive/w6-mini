@@ -53,7 +53,7 @@ const Post = ({ post, onDelete }) => {
             <Icon>
               <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
             </Icon>
-            <LikeTxt>{post.postLikes}</LikeTxt>
+            <LikeTxt>{post.postLike}</LikeTxt>
           </Like>
         </TitleBox>
         <Tag>

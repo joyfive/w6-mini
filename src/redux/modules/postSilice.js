@@ -10,10 +10,10 @@ export const addPost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios
-        .post(`${process.env.REACT_APP_API_URL}/api/gamepost`, payload, {
+        .post(`${process.env.REACT_APP_API_URL}/posts`, payload, {
           headers: {
             enctype: "multipart/form-data",
-            Access_Token: `${localStorage.getItem("token")}`,
+            Access_Token: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE`,
             "Cache-Control": "no-cache",
           },
         })
@@ -47,7 +47,15 @@ export const getList = createAsyncThunk(
   "post/getList", //type
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(`http://localhost:3001/posts`)
+      const data = await axios.get(
+        `http://13.124.45.96/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        {
+          headers: {
+            Access_Token:
+              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+          },
+        }
+      )
       return thunkAPI.fulfillWithValue(data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -59,8 +67,18 @@ export const deletePost = createAsyncThunk(
   "post/deletePost", //type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/posts/${payload}`)
-      const data = await axios.get(`http://localhost:3001/posts`)
+      await axios.delete(`http://13.124.45.96/api/posts/${payload}`, {
+        headers: {
+          Access_Token:
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+        },
+      })
+      const data = await axios.get(`http://13.124.45.96/api/posts`, {
+        headers: {
+          Access_Token:
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3UxZHNmMSIsImV4cCI6MTY2NjgwNTE0NCwiaWF0IjoxNjY2NzY5MTQ0fQ.y0fVQkrjlVn1-BVkn3jKps1pk-MHvtoG_iwW9kGCdmE",
+        },
+      })
       return thunkAPI.fulfillWithValue(data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

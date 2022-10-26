@@ -16,7 +16,11 @@ const Editor = () => {
     tag: "",
     contents: "",
   })
-
+  const selectList = ["일상", "질문", "공유", "공지"]
+  const [tagSelect, setTagSelect] = useState("")
+  const handleSelect = (e) => {
+    setTagSelect(e.target.value)
+  }
   const { isSuccess, error } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -42,31 +46,30 @@ const Editor = () => {
     }
   }
 
-  //validation
-  const validateForm = () => {
-    let validated = true
-    if (
-      postInput.title === "" ||
-      postInput.contents === "" ||
-      postInput.tag === ""
-    ) {
-      validated = false
-    }
-    return validated
-  }
+  // //validation
+  // const validateForm = () => {
+  //   let validated = true
+  //   if (
+  //     postInput.title === "" ||
+  //     postInput.contents === "" ||
+  //     postInput.tag === ""
+  //   ) {
+  //     validated = false
+  //   }
+  //   return validated
+  // }
 
   const onPost = (e) => {
     e.preventDefault()
-    if (validateForm()) {
-      const formData = new FormData()
+    const formData = new FormData()
 
-      formData.append("img", imgFile)
-      formData.append("title", postInput.title)
-      formData.append("contents", postInput.contents)
-      formData.append("tag", postInput.tag)
+    formData.append("img", imgFile)
+    formData.append("title", postInput.title)
+    formData.append("contents", postInput.contents)
+    formData.append("tag", postInput.tag)
 
-      dispatch(addPost(formData))
-    }
+    dispatch(addPost(formData))
+    navigate("/list?sort=createdAt&accountTeam=All&tag=All")
   }
 
   useEffect(() => {
@@ -91,6 +94,7 @@ const Editor = () => {
               type="text"
               maxLength="10"
               value={postInput.title || ""}
+              name="title"
               onChange={postInputHandle}
               color="line"
               size="full"
@@ -128,53 +132,18 @@ const Editor = () => {
             </label>
           </FileBox>
 
-          <RadioBox>
-            <label>태그</label>
-            <LabelBox>
-              <Radio
-                value={postInput.tag || "diary"}
-                onChange={postInputHandle}
-                id="radio1"
-                type="radio"
-                name="account_tag"
-              />
-              <label htmlFor="radio1">일상</label>
-            </LabelBox>
-            <LabelBox>
-              <Radio
-                value={postInput.tag || "question"}
-                onChange={postInputHandle}
-                id="radio2"
-                type="radio"
-                name="account_tag"
-              />
-              <label htmlFor="radio2">질문</label>
-            </LabelBox>
-            <LabelBox>
-              <Radio
-                value={postInput.tag || "share"}
-                onChange={postInputHandle}
-                id="radio3"
-                type="radio"
-                name="account_tag"
-              />
-              <label htmlFor="radio3">공유</label>
-            </LabelBox>
-            <LabelBox>
-              <Radio
-                value={postInput.tag || "notice"}
-                onChange={postInputHandle}
-                id="radio4"
-                type="radio"
-                name="account_tag"
-              />
-              <label htmlFor="radio4">공지</label>
-            </LabelBox>
-          </RadioBox>
+          <select onChange={handleSelect} value={tagSelect}>
+            {selectList.map((item) => (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            ))}
+          </select>
 
           <label>내용</label>
           <TextBox
             value={postInput.contents || ""}
+            name="contents"
             onChange={postInputHandle}
           />
         </AllTextBox>
@@ -227,10 +196,22 @@ const AllTextBox = styled.div`
   height: 700px;
   padding: 10%;
   margin: 30px 50% 0 0;
-  border: 3px solid rgb(238, 238, 238);
+  border: 0;
+
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px #e1cccd;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  select {
+    height: 50px !important;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #fd5c63;
+    box-shadow: 0px 2px 10px #e1cccd;
+    margin: 20px 0;
+  }
 `
 //제목 입력창
 const LabelInput = styled.div`

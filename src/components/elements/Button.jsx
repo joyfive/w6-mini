@@ -1,15 +1,15 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from "react"
+import styled, { css } from "styled-components"
 
 const Button = (props) => {
   return (
     <StButton {...props} disabled={props.disabled}>
       {props.children}
     </StButton>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button
 
 const StButton = styled.button`
   padding: 10px;
@@ -37,23 +37,23 @@ const StButton = styled.button`
       case "full":
         return css`
           width: 100%;
-        `;
+        `
       case "large":
         return css`
           width: 50%;
-        `;
+        `
       case "medium":
         return css`
           width: 200px;
           height: 40px !important;
           padding; 5px;
-        `;
+        `
       case "short":
         return css`
           width: 120px;
           height: 40px !important;
           padding: 5px;
-        `;
+        `
       case "small":
         return css`
           width: 30px;
@@ -62,7 +62,21 @@ const StButton = styled.button`
 
           border: 0;
           box-shadow: 0px 2px 10px #e1cccd;
-        `;
+        `
+      case "percent":
+        return css`
+          width: 30%;
+          height: 50px !important;
+          padding: 6px;
+          margin: 0;
+          margin-left: 20px
+          border: 0;
+          box-shadow: 0px 2px 10px #e1cccd;
+          @media screen and (max-width: 1080px) {
+            width: 40%;
+            margin-right: 0;
+          }
+        `
       case "round":
         return css`
           width: 60px;
@@ -82,13 +96,13 @@ const StButton = styled.button`
             background-color: white !important;
             color: #fd5c63 !important;
           }
-        `;
+        `
       default:
         return css`
           width: 240px;
           height: 40px !important;
           padding: 10px;
-        `;
+        `
     }
   }}
   ${({ color }) => {
@@ -102,12 +116,12 @@ const StButton = styled.button`
             border: 0;
             color: #fd5c63;
           }
-        `;
+        `
       case "line":
         return css`
           background-color: white;
           border: 1px solid #fd5c63;
-        `;
+        `
       case "tag-b":
         return css`
           background-color: white;
@@ -128,7 +142,7 @@ const StButton = styled.button`
             color: #121212;
             border: 1px solid #121212;
           }
-        `;
+        `
       case "tag-red":
         return css`
           background-color: white;
@@ -149,7 +163,7 @@ const StButton = styled.button`
             color: #fd5c63;
             border: 1px solid #fd5c63;
           }
-        `;
+        `
       case "cmt-b":
         return css`
           background-color: white;
@@ -170,7 +184,7 @@ const StButton = styled.button`
             color: white;
             border: 1px solid #333;
           }
-        `;
+        `
       case "cmt-red":
         return css`
           background-color: white;
@@ -191,7 +205,7 @@ const StButton = styled.button`
             color: #white;
             border: 1px solid #fd5c63;
           }
-        `;
+        `
       default:
         return css`
           color: #fd5c63;
@@ -201,7 +215,7 @@ const StButton = styled.button`
             border: 0;
             color: white;
           }
-        `;
+        `
     }
   }}
-`;
+`
