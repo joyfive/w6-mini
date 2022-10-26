@@ -1,65 +1,72 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
 
 const initialState = {
   posts: [],
-};
+}
 
 export const addPost = createAsyncThunk(
-  "posts/post", //type
+  "contents/insert",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(
-        `${process.env.REACT_APP_API_URL_POST}`,
-        payload
-      );
-      return thunkAPI.fulfillWithValue(data.data);
+      await axios
+        .post(`${process.env.REACT_APP_API_URL}/api/gamepost`, payload, {
+          headers: {
+            enctype: "multipart/form-data",
+            Access_Token: `${localStorage.getItem("token")}`,
+            "Cache-Control": "no-cache",
+          },
+        })
+        .then((response) => {
+          console.log("response", response.data)
+        })
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log("error", error)
+      return thunkAPI.rejectWithValue(error)
     }
   }
-);
+)
 
-//ID로
-export const getDetail = createAsyncThunk(
-  "posts/getDetail", //type
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.get(
-        `${process.env.REACT_APP_API_URL_POST}/posts/${payload}`
-      );
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-// 3가지 조건 Params로 전달
-export const getList = createAsyncThunk(
-  "post/getList", //type
-  async (_, thunkAPI) => {
-    try {
-      const data = await axios.get(`http://localhost:3001/posts`);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-// export const __deleteTodo = createAsyncThunk(
-//   "todos/deleteTodo", //type
+// //ID로
+// export const getDetail = createAsyncThunk(
+//   "posts/getDetail", //type
 //   async (payload, thunkAPI) => {
 //     try {
-//       await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload}`);
-//       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
+//       const data = await axios.get(
+//         `${process.env.REACT_APP_API_URL_POST}/posts/${payload}`
+//       );
 //       return thunkAPI.fulfillWithValue(data.data);
 //     } catch (error) {
 //       return thunkAPI.rejectWithValue(error);
 //     }
 //   }
 // );
+
+// 3가지 조건 Params로 전달
+export const getList = createAsyncThunk(
+  "post/getList", //type
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get(`http://localhost:3001/posts`)
+      return thunkAPI.fulfillWithValue(data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+export const deletePost = createAsyncThunk(
+  "post/deletePost", //type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/posts/${payload}`)
+      const data = await axios.get(`http://localhost:3001/posts`)
+      return thunkAPI.fulfillWithValue(data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
 
 // export const __updateStatus = createAsyncThunk(
 //   "todos/updateStatus", //type
@@ -103,43 +110,43 @@ export const postSlice = createSlice({
   extraReducers: {
     //-__getTodos-
     [getList.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isLoading = true // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
     [getList.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isSuccess = false;
-      state.posts = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.isLoading = false // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false
+      state.posts = action.payload // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
     },
     [getList.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isSuccess = false;
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false
+      state.error = action.payload // catch 된 error 객체를 state.error에 넣습니다.
     },
-    //-addPost-
-    [addPost.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [addPost.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.posts = [...state.post, { ...action.payload }];
-    },
-    [addPost.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-      state.isSuccess = false;
-    },
-    // //-__deleteTodo-
-    // [__deleteTodo.pending]: (state) => {
-    //   state.isLoading = true;
+    // //-addPost-
+    // [addPost.pending]: (state) => {
+    //   state.isLoading = true
     // },
-    // [__deleteTodo.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.todos = action.payload;
+    // [addPost.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.posts = [...state.post, { ...action.payload }]
     // },
-    // [__deleteTodo.rejected]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
+    // [addPost.rejected]: (state, action) => {
+    //   state.error = action.payload
+    //   state.isLoading = false
+    //   state.isSuccess = false
     // },
+    //-__deleteTodo-
+    [deletePost.pending]: (state) => {
+      state.isLoading = true
+    },
+    [deletePost.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.posts = action.payload
+    },
+    [deletePost.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
     // //-__updateStatus-
     // [__updateStatus.pending]: (state) => {
     //   state.isLoading = true;
@@ -164,20 +171,20 @@ export const postSlice = createSlice({
     //   state.isLoading = false;
     //   state.error = action.payload;
     // },
-    //-getDetail
-    [getDetail.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getDetail.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.posts = action.payload;
-    },
-    [getDetail.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // //-getDetail
+    // [getDetail.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [getDetail.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.posts = action.payload;
+    // },
+    // [getDetail.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
-});
+})
 
 // export const { getDetail, addPost, getList } = postSlice.actions;
-export default postSlice.reducer;
+export default postSlice.reducer

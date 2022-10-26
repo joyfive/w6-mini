@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Box from "../elements/Box";
-import Button from "../elements/Button";
+import React, { useState } from "react"
+// import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import Box from "../elements/Box"
+import Button from "../elements/Button"
 import {
   HiOutlineHeart,
   HiHeart,
@@ -10,29 +10,22 @@ import {
   HiOutlineChevronDown,
   HiPencilAlt,
   HiTrash,
-} from "react-icons/hi";
-import Comments from "./Comments";
+} from "react-icons/hi"
+import Comments from "./Comments"
 
-const Post = ({ post }) => {
-  const navigate = useNavigate();
+const Post = ({ post, onDelete }) => {
+  console.log(post)
+  // const navigate = useNavigate()
 
-  console.log(post);
-
-  const onDetail = () => {
-    navigate(`/posts/${post.id}`);
-  };
-
-  const [useIsDisplay, setUseIsDisplay] = useState("none");
-  const [useToggle, setUseToggle] = useState("");
+  const [useIsDisplay, setUseIsDisplay] = useState("none")
+  const [useToggle, setUseToggle] = useState("")
 
   const commentToggle = () => {
-    useIsDisplay === "none"
-      ? setUseIsDisplay("block")
-      : setUseIsDisplay("none");
-  };
+    useIsDisplay === "none" ? setUseIsDisplay("block") : setUseIsDisplay("none")
+  }
 
-  const icoTurn = () => setUseToggle(!useToggle);
-  const rotate = useToggle ? "rotate(180deg)" : "rotate(0)";
+  const icoTurn = () => setUseToggle(!useToggle)
+  const rotate = useToggle ? "rotate(180deg)" : "rotate(0)"
 
   return (
     <>
@@ -46,7 +39,10 @@ const Post = ({ post }) => {
             </HdLi>
             <HdLi>
               <Button size="small" color="reverse">
-                <HiTrash className="ico" />
+                <HiTrash
+                  className="ico"
+                  onClick={() => onDelete(post.postId)}
+                />
               </Button>
             </HdLi>
           </Handle>
@@ -57,7 +53,7 @@ const Post = ({ post }) => {
             <Icon>
               <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
             </Icon>
-            <LikeTxt>{post.likeCount}</LikeTxt>
+            <LikeTxt>{post.postLikes}</LikeTxt>
           </Like>
         </TitleBox>
         <Tag>
@@ -67,7 +63,7 @@ const Post = ({ post }) => {
           </TagLi>
           <TagLi>
             <Button color="tag-b">
-              {post.accountLead === true ? "팀장" : "팀원"}
+              {post.accountLead === "true" ? "팀장" : "팀원"}
             </Button>
           </TagLi>
           <TagLi>
@@ -75,50 +71,76 @@ const Post = ({ post }) => {
           </TagLi>
         </Tag>
         <Hr />
-        <Img onClick={onDetail} src={post.img} />
+        <Img
+          // onClick={() => {
+          //   navigate(`/posts/${post.postId}`)
+          // }}
+          src={post.img}
+        />
         <Body>
-          <Content onClick={onDetail}>{post.contents}</Content>
+          <Content
+          // onClick={() => {
+          //   navigate(`/posts/${post.postId}`)
+          // }}
+          >
+            {post.contents}
+          </Content>
           <CommentHandle>
             <HiOutlineChatAlt2 className="ico" />
-            <CmtTxt>
-              댓글
-              <HiOutlineChevronDown
-                className="ico"
-                style={{ transform: rotate }}
-                onClick={() => {
-                  commentToggle();
-                  icoTurn();
-                }}
-              />
-            </CmtTxt>
+            <CmtFlex>
+              <CmtTxt>
+                댓글
+                <HiOutlineChevronDown
+                  className="ico"
+                  style={{ transform: rotate }}
+                  onClick={() => {
+                    commentToggle()
+                    icoTurn()
+                  }}
+                />
+              </CmtTxt>
+              <CmtRight>
+                {post.createdAt === post.modifiedAt
+                  ? `${post.modifiedAt}`
+                  : `${post.modifiedAt} 수정됨`}
+              </CmtRight>
+            </CmtFlex>
           </CommentHandle>
           <Cmt isDisplay={useIsDisplay}>
-            <Comments />
+            {post.comments.map((comment) => {
+              if (post.comments.length !== 0)
+                return (
+                  <Comments
+                    key={Math.random()}
+                    comments={post.comments}
+                    comment={comment}
+                  />
+                )
+            })}
           </Cmt>
         </Body>
       </Box>
-      ;
     </>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
-`;
+`
 const Title = styled.h3`
   font-size: 1.2rem;
   line-height: 1;
-`;
+`
 const Like = styled.div`
   font-size: 0.9rem;
   margin-top: 16px;
   font-weight: 400;
   display: flex;
-`;
+`
 
 const Icon = styled.div`
   font-size: 1.5rem;
@@ -135,12 +157,12 @@ const Icon = styled.div`
       display: block;
     }
   }
-`;
+`
 
 const LikeTxt = styled.div`
   margin-left: 10px;
   margin-top: 3px;
-`;
+`
 
 const Tag = styled.ul`
   display: flex;
@@ -149,18 +171,18 @@ const Tag = styled.ul`
   list-style: none;
   margin: 0 10px;
   padding: 0;
-`;
+`
 
 const Author = styled.li`
   font-weight: 400;
   font-size: 14px;
   margin-right: 5px;
   line-height: 1.4;
-`;
+`
 const TagLi = styled.li`
   font-size: 12px;
   margin-right: 5px;
-`;
+`
 
 const Img = styled.img`
   width: 100%;
@@ -168,22 +190,22 @@ const Img = styled.img`
   object-fit: cover;
   margin: 10px 0;
   border-radius: 10px;
-`;
+`
 
 const Hr = styled.hr`
   margin-top: 20px;
   border-bottom: 0;
   border-top: 1px solid #fd5c63;
-`;
+`
 
 const Body = styled.div`
   margin: 10px 0;
-`;
+`
 
 const Content = styled.div`
   font-size: 13px;
   font-weight: 400;
-`;
+`
 
 const CommentHandle = styled.div`
   display: flex;
@@ -205,7 +227,13 @@ const CommentHandle = styled.div`
     display: block;
   }
   }*/
-`;
+`
+const CmtFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 10px;
+`
 
 const CmtTxt = styled.div`
   margin-left: 5px;
@@ -216,11 +244,18 @@ const CmtTxt = styled.div`
   .ico {
     transform: ${(props) => props.transform};
   }
-`;
+`
+const CmtRight = styled.div`
+  margin-left: 5px;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #aaa;
+`
 
 const Cmt = styled.div`
   display: ${(props) => props.isDisplay};
-`;
+`
 
 const Flex = styled.div`
   display: flex;
@@ -233,13 +268,13 @@ const Flex = styled.div`
   ul {
     padding: 0;
   }
-`;
+`
 
 const Handle = styled.ul`
   list-style: none;
   display: flex;
-`;
+`
 
 const HdLi = styled.li`
   list-style: none;
-`;
+`

@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Layout from "../components/elements/Layout";
-import Box from "../components/elements/Box";
-import Button from "../components/elements/Button";
-import Comments from "../components/features/Comments";
-
-import { HiPencilAlt, HiPencil } from "react-icons/hi";
-import List from "../components/features/List";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import Layout from "../components/elements/Layout"
+import Box from "../components/elements/Box"
+import Button from "../components/elements/Button"
+import MyComments from "../components/features/MyComments"
+import List from "../components/features/List"
+import { HiPencilAlt, HiPencil } from "react-icons/hi"
 
 const Mypage = () => {
-  const [usePost, setUsePost] = useState("block");
-  const [useCmt, setUseCmt] = useState("none");
+  const [usePost, setUsePost] = useState("block")
+  const [useCmt, setUseCmt] = useState("none")
 
   const onPost = () => {
-    usePost === "none" ? setUsePost("block") : setUsePost("block");
-    useCmt === "block" ? setUseCmt("none") : setUseCmt("none");
-  };
+    usePost === "none" ? setUsePost("block") : setUsePost("block")
+    useCmt === "block" ? setUseCmt("none") : setUseCmt("none")
+  }
 
   const onCmt = () => {
-    usePost === "block" ? setUsePost("none") : setUsePost("none");
-    useCmt === "none" ? setUseCmt("block") : setUseCmt("block");
-  };
+    usePost === "block" ? setUsePost("none") : setUsePost("none")
+    useCmt === "none" ? setUseCmt("block") : setUseCmt("block")
+  }
 
   return (
     <Layout>
@@ -60,22 +59,22 @@ const Mypage = () => {
         <H2 onClick={onCmt}>내가 쓴 댓글</H2>
       </Cate>
       <ShowList display={usePost}>
-        <List></List>
+        <List />
       </ShowList>
       <ShowCmt display={useCmt}>
-        <Comments />
+        <MyComments />
       </ShowCmt>
     </Layout>
-  );
-};
+  )
+}
 
-export default Mypage;
+export default Mypage
 
 const H1 = styled.h1`
   font-size: 48px;
   font-weight: 700;
   text-align: center;
-`;
+`
 
 const Flex = styled.div`
   padding: 10px;
@@ -85,7 +84,7 @@ const Flex = styled.div`
   @media screen and (max-width: 700px) {
     flex-direction: column;
   }
-`;
+`
 const Left = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -94,7 +93,7 @@ const Left = styled.div`
   @media screen and (max-width: 700px) {
     justify-content: space-around;
   }
-`;
+`
 
 const Tag = styled.div`
   display: flex;
@@ -103,7 +102,7 @@ const Tag = styled.div`
   list-style: none;
   margin: 0 10px 0 0;
   padding: 0;
-`;
+`
 
 const User = styled.div`
   width: 80px;
@@ -112,35 +111,35 @@ const User = styled.div`
     margin-right: 5px;
   }
   font-size: 13px;
-`;
+`
 
 const Right = styled.div`
   display: flex;
   @media screen and (max-width: 700px) {
     flex-direction: column;
   }
-`;
+`
 
 const Btn = styled.div`
   display: none;
   @media screen and (max-width: 700px) {
     display: block;
   }
-`;
+`
 const Btn2 = styled.div`
   display: block;
   padding-top: 5px;
   @media screen and (max-width: 700px) {
     display: none;
   }
-`;
-const Body = styled.div``;
+`
+const Body = styled.div``
 
 const Cate = styled.ul`
   padding: 0;
   display: flex;
   justify-content: center;
-`;
+`
 
 const H2 = styled.h2`
   font-size: 24px;
@@ -154,12 +153,12 @@ const H2 = styled.h2`
     color: #fd5c63;
     border-bottom: 2px solid #fd5c63;
   }
-`;
+`
 
 const ShowList = styled.div`
   display: ${(props) => props.display};
-`;
+`
 
 const ShowCmt = styled.div`
   display: ${(props) => props.display};
-`;
+`
