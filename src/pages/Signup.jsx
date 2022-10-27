@@ -34,7 +34,7 @@ const SignUp = () => {
   }
   const obj = {
     email: join.email,
-    accountName: join.Name,
+    accountName: join.accountName,
     accountPw: join.accountPw,
     accountPwConfirm: join.accountPwConfirm,
     accountTeam: accountTeam,
@@ -85,7 +85,7 @@ const SignUp = () => {
     // if (obj.nickname === "" || obj.accountName === undefined) {
     //   return alert("빈칸을 입력해주세요.")
     // }
-
+    console.log(obj.accountName)
     dispatch(accountSignup(obj))
   }
   useEffect(() => {

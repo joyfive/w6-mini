@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import home from "../modules/homeSlice"
 import posts from "../modules/postSilice"
 import account from "../modules/accountSlice"
+import cmts from "../modules/cmtSlice"
 // import todos from "../modules/todos.js";
 // import comments from "../modules/comments.js";
 
@@ -10,6 +11,7 @@ const store = configureStore({
     home,
     posts,
     account,
+    cmts,
 
     // todos,
     // comments,

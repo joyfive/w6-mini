@@ -15,12 +15,11 @@ const List = () => {
   const onDelete = (id) => {
     if (window.confirm("삭제하시겠습니까?")) {
       dispatch(deletePost(id))
-      window.alert("삭제가 완료되었습니다.")
     }
   }
   return (
     <Box size="list" color="gray">
-      {posts.map((post) => {
+      {posts.map((post, id) => {
         if (posts.length !== 0)
           return <Post key={post.postId} post={post} onDelete={onDelete} />
       })}

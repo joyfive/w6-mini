@@ -91,7 +91,6 @@ const Editor = () => {
       console.log(value)
     }
     dispatch(addPost(formData))
-    navigate("/list?sort=createdAt&accountTeam=All&tag=All")
   }
 
   useEffect(() => {

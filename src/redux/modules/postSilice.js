@@ -1,8 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
+import { getCookie } from "../../Cookie"
 
 const initialState = {
   posts: [],
+}
+const header = {
+  "Content-Type": "application/json",
+  Access_Token: getCookie("Access_Token"),
 }
 
 export const addPost = createAsyncThunk(
@@ -10,18 +15,20 @@ export const addPost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios
+
         .post(`http://54.180.146.88/api/posts`, payload, {
           headers: {
             enctype: "multipart/form-data",
-            Access_Token: `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY`,
-            "Cache-Control": "no-cache",
+            Access_Token: getCookie("Access_Token"),
           },
         })
         .then((response) => {
           console.log("response", response.data)
+          window.location.replace("/list")
         })
     } catch (error) {
-      console.log("error", error)
+      console.log(error)
+      alert(error.response.data.message)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -50,10 +57,7 @@ export const getList = createAsyncThunk(
       const data = await axios.get(
         `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
-          headers: {
-            Access_Token:
-              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
-          },
+          headers: header,
         }
       )
       return thunkAPI.fulfillWithValue(data.data)
@@ -68,18 +72,17 @@ export const deletePost = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`http://54.180.146.88/api/posts/${payload}`, {
-        headers: {
-          Access_Token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
-        },
+        headers: header,
       })
-      const data = await axios.get(`http://54.180.146.88/api/posts`, {
-        headers: {
-          Access_Token:
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3Vkc2YiLCJleHAiOjE2NjY4MzEwNzMsImlhdCI6MTY2Njc5NTA3M30.-h8r26HMc-8__Gm9WeYFR07zb1DJG0Z4VLG5X6SU7sY",
-        },
-      })
-      return thunkAPI.fulfillWithValue(data.data)
+      alert("삭제가 완료되었습니다.")
+      const data = await axios.get(
+        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        {
+          headers: header,
+        }
+      )
+
+      return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -140,26 +143,28 @@ export const postSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload // catch 된 error 객체를 state.error에 넣습니다.
     },
-    // //-addPost-
-    // [addPost.pending]: (state) => {
-    //   state.isLoading = true
-    // },
-    // [addPost.fulfilled]: (state, action) => {
-    //   state.isLoading = false
-    //   state.posts = [...state.post, { ...action.payload }]
-    // },
-    // [addPost.rejected]: (state, action) => {
-    //   state.error = action.payload
-    //   state.isLoading = false
-    //   state.isSuccess = false
-    // },
-    //-__deleteTodo-
+    //-addPost-
+    [addPost.pending]: (state) => {
+      state.isLoading = true
+    },
+    [addPost.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.posts = [...state.post, { ...action.payload }]
+    },
+    [addPost.rejected]: (state, action) => {
+      state.error = action.payload
+      state.isLoading = false
+      state.isSuccess = false
+    },
+    // -__deleteTodo-
     [deletePost.pending]: (state) => {
       state.isLoading = true
     },
     [deletePost.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.posts = action.payload
+      console.log(state.posts)
+      console.log(action.payload)
+      state.posts = action.payload.fiter((item) => item.id !== action.payload)
     },
     [deletePost.rejected]: (state, action) => {
       state.isLoading = false

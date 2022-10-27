@@ -1,8 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 // import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { addCmt } from "../../redux/modules/cmtSlice"
+import { getList, deletePost, addPost } from "../../redux/modules/postSilice"
 import styled from "styled-components"
 import Box from "../elements/Box"
 import Button from "../elements/Button"
+import Input from "../elements/Input"
 import {
   HiOutlineHeart,
   HiHeart,
@@ -12,16 +16,22 @@ import {
   HiTrash,
 } from "react-icons/hi"
 import Comments from "./Comments"
+import useInput from "../../hooks/useInput"
 
-const Post = ({ post, onDelete }) => {
+const Post = ({ post, onDelete, id }) => {
+  const dispatch = useDispatch()
+  //커스텀 훅 사용
+  const [cmtInput, setCmtInput, cmtInputHandle] = useInput({
+    comments: "",
+  })
+
   console.log(post)
   // const navigate = useNavigate()
-
   const [useIsDisplay, setUseIsDisplay] = useState("none")
   const [useToggle, setUseToggle] = useState("")
 
   //태그 국문 변환용 스테이트
-  const [tag, setTag] = useState("")
+  // const [tag, setTag] = useState("")
 
   // 국문변환 스위치문
   // switch (post.tag) {
@@ -37,6 +47,15 @@ const Post = ({ post, onDelete }) => {
   //     return setTag("공지")
   // }
 
+  const onCmtHandler = (e) => {
+    {
+      setCmtInput({
+        param: id,
+        comments: post.comments.comments,
+      })
+    }
+    dispatch(addCmt(cmtInput))
+  }
   const commentToggle = () => {
     useIsDisplay === "none" ? setUseIsDisplay("block") : setUseIsDisplay("none")
   }
@@ -89,6 +108,7 @@ const Post = ({ post, onDelete }) => {
         </Tag>
         <Hr />
         <Img
+          display={post.img !== null ? "block" : "none"}
           // onClick={() => {
           //   navigate(`/posts/${post.postId}`)
           // }}
@@ -124,12 +144,22 @@ const Post = ({ post, onDelete }) => {
             </CmtFlex>
           </CommentHandle>
           <Cmt isDisplay={useIsDisplay}>
+            <CmtInput>
+              <Input
+                onChange={cmtInputHandle}
+                name="comments"
+                value={cmtInput.comments || ""}
+              />
+              <Button color="reverse" size="short" onClick={onCmtHandler}>
+                등록
+              </Button>
+            </CmtInput>
             {post.comments.map((comment) => {
               if (post.comments.length !== 0)
                 return (
                   <Comments
                     key={Math.random()}
-                    comments={post.comments}
+                    comments={post.comments.comments}
                     comment={comment}
                   />
                 )
@@ -142,6 +172,10 @@ const Post = ({ post, onDelete }) => {
 }
 
 export default Post
+
+const CmtInput = styled.div`
+  display: flex;
+`
 
 const TitleBox = styled.div`
   display: flex;
@@ -207,6 +241,7 @@ const Img = styled.img`
   object-fit: cover;
   margin: 10px 0;
   border-radius: 10px;
+  display: ${(props) => props.display};
 `
 
 const Hr = styled.hr`

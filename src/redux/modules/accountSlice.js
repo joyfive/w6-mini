@@ -1,19 +1,21 @@
 import { createSlice, current } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import { setCookie } from "../../Cookie"
+import { getCookie, setCookie } from "../../Cookie"
 
 const initialState = {
   account: [],
   isLoading: false,
   error: null,
 }
+
 export const accountSignin = createAsyncThunk(
   "account/signIn",
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`http://13.124.45.96/auth/signin`, payload)
+      // const data = await axios.post(`http://13.124.45.96/auth/signin`, payload)
+      const data = await axios.post(`http://54.180.146.88/auth/login`, payload)
       const Access_Token = data.headers.access_token
       // const refreshToken = data.headers["refresh-token"];
       if (data.status === 200 || data.status === 201) {
@@ -27,8 +29,8 @@ export const accountSignin = createAsyncThunk(
       return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       if (400 <= error.data.status && error.data.status <= 500) {
-        window.location.reload()
         alert("로그인에 실패했습니다.")
+        window.location.reload()
       }
       return thunkAPI.rejectWithValue(error)
     }
@@ -40,12 +42,14 @@ export const accountCheck = createAsyncThunk(
   // type
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`http://13.124.45.96/auth/check`, {
+      const data = await axios.post(`http://54.180.146.88/auth/check`, {
         email: payload,
       })
-      alert(data.data.msg)
+      alert(data.data.message)
       return thunkAPI.fulfillWithValue(data.data)
     } catch (error) {
+      alert(error.response.data[0].message)
+      console.log(error)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -55,7 +59,9 @@ export const accountSignup = createAsyncThunk(
   "account/userSignUp",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`http://13.124.45.96/auth/signup`, payload)
+      const data = await axios.post(`http://54.180.146.88/auth/signup`, payload)
+      alert(data.data.message)
+      window.location.replace("/signin")
       return thunkAPI.fulfillWithValue(data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
