@@ -162,10 +162,10 @@ const Editor = () => {
             }}
           >
             <option value={"tag"}> --태그 선택--</option>
-            <option value={"daily"}>일상</option>
-            <option value={"ques"}>질문</option>
-            <option value={"share"}>공유</option>
-            <option value={"notice"}>공지</option>
+            <option value={"일상"}>일상</option>
+            <option value={"질문"}>질문</option>
+            <option value={"공유"}>공유</option>
+            <option value={"공지"}>공지</option>
             {/* ))} */}
           </select>
 

@@ -16,14 +16,9 @@ import {
   HiTrash,
 } from "react-icons/hi"
 import Comments from "./Comments"
-import useInput from "../../hooks/useInput"
 
 const Post = ({ post, onDelete, id }) => {
   const dispatch = useDispatch()
-  //커스텀 훅 사용
-  const [cmtInput, setCmtInput, cmtInputHandle] = useInput({
-    comments: "",
-  })
 
   console.log(post)
   // const navigate = useNavigate()
@@ -31,7 +26,7 @@ const Post = ({ post, onDelete, id }) => {
   const [useToggle, setUseToggle] = useState("")
 
   //태그 국문 변환용 스테이트
-  // const [tag, setTag] = useState("")
+  const [tag, setTag] = useState("")
 
   // 국문변환 스위치문
   // switch (post.tag) {
@@ -47,14 +42,36 @@ const Post = ({ post, onDelete, id }) => {
   //     return setTag("공지")
   // }
 
-  const onCmtHandler = (e) => {
-    {
-      setCmtInput({
-        param: id,
-        comments: post.comments.comments,
-      })
+  // const Tag = () => {
+  //   if (post.tag === "daily") return setTag("일상")
+  //   if (post.tag === "ques") return setTag("질문")
+  //   if (post.tag === "share") return setTag("공유")
+  //   if (post.tag === "notice") return setTag("공지")
+  // }
+
+  //댓글
+  const initialState = {
+    id: post.postId,
+    comments: "",
+  }
+  const [cmt, setCmt] = useState(initialState)
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target
+    setCmt({ ...cmt, [name]: value })
+  }
+
+  const obj = {
+    id: post.postId,
+    comments: cmt.comments,
+  }
+  const onCmtHandler = (event) => {
+    event.preventDefault()
+    if (cmt.comments !== "") {
+      dispatch(addCmt(obj))
+    } else {
+      alert("댓글 내용이 없습니다.")
     }
-    dispatch(addCmt(cmtInput))
   }
   const commentToggle = () => {
     useIsDisplay === "none" ? setUseIsDisplay("block") : setUseIsDisplay("none")
@@ -95,7 +112,7 @@ const Post = ({ post, onDelete, id }) => {
         <Tag>
           <Author>@ {post.accountName}</Author>
           <TagLi>
-            <Button color="tag-b">{post.accountTeam}</Button>
+            <Button color="tag-b">{post.accountTeam}조</Button>
           </TagLi>
           <TagLi>
             <Button color="tag-b">
@@ -145,11 +162,7 @@ const Post = ({ post, onDelete, id }) => {
           </CommentHandle>
           <Cmt isDisplay={useIsDisplay}>
             <CmtInput>
-              <Input
-                onChange={cmtInputHandle}
-                name="comments"
-                value={cmtInput.comments || ""}
-              />
+              <Input onChange={onChangeHandler} name="comments" />
               <Button color="reverse" size="short" onClick={onCmtHandler}>
                 등록
               </Button>

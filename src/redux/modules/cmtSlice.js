@@ -13,19 +13,41 @@ const header = {
 export const addCmt = createAsyncThunk(
   "comments/insert",
   async (payload, thunkAPI) => {
+    console.log(payload)
     try {
-      await axios.post(
-        `http://54.180.146.88/api/${payload.param}/comments`,
-        payload.,
+      await axios
+        .post(`http://54.180.146.88/api/${payload.id}/comments`, payload, {
+          headers: header,
+        })
+        .then((response) => {
+          console.log("response", response.data)
+        })
+    } catch (error) {
+      console.log("error", error)
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+export const deleteCmt = createAsyncThunk(
+  "post/deleteCmt", //type
+  async (payload, thunkAPI) => {
+    console.log(payload)
+    try {
+      await axios.delete(`http://54.180.146.88/api/1/comments/${payload}`, {
+        headers: header,
+      })
+      alert("삭제가 완료되었습니다.")
+      const data = await axios.get(
+        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: header,
         }
       )
-      console.log(payload).then((response) => {
-        console.log("response", response.data)
-      })
+
+      return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
-      console.log("error", error)
+      alert(error.response.data.message)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -64,18 +86,18 @@ export const cmtSlice = createSlice({
       state.isLoading = false
       state.isSuccess = false
     },
-    // // -__deleteCmt-
-    // [deletePost.pending]: (state) => {
-    //   state.isLoading = true
-    // },
-    // [deletePost.fulfilled]: (state, action) => {
-    //   state.isLoading = false
-    //   state.comments = action.payload
-    // },
-    // [deletePost.rejected]: (state, action) => {
-    //   state.isLoading = false
-    //   state.error = action.payload
-    // },
+    // -__deleteCmt-
+    [deleteCmt.pending]: (state) => {
+      state.isLoading = true
+    },
+    [deleteCmt.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.comments = action.payload
+    },
+    [deleteCmt.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
     // //-__updateStatus-
     // [__updateStatus.pending]: (state) => {
     //   state.isLoading = true;

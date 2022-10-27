@@ -1,7 +1,7 @@
 import { createSlice, current } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-import { getCookie, setCookie } from "../../Cookie"
+import { setCookie } from "../../Cookie"
 
 const initialState = {
   account: [],
@@ -14,7 +14,10 @@ export const accountSignin = createAsyncThunk(
   // login : reducer name, 경로 정해줘야
   async (payload, thunkAPI) => {
     try {
-      // const data = await axios.post(`http://13.124.45.96/auth/signin`, payload)
+      // const data = await axios.post(
+      //   `http://3.39.72.234:8080/api/account/login`,
+      //   payload
+      // )
       const data = await axios.post(`http://54.180.146.88/auth/login`, payload)
       const Access_Token = data.headers.access_token
       // const refreshToken = data.headers["refresh-token"];
@@ -46,9 +49,9 @@ export const accountCheck = createAsyncThunk(
         email: payload,
       })
       alert(data.data.message)
-      return thunkAPI.fulfillWithValue(data.data)
+      return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
-      alert(error.response.data[0].message)
+      alert(error.response.data.message)
       console.log(error)
       return thunkAPI.rejectWithValue(error)
     }

@@ -1,10 +1,18 @@
 import React from "react"
 import Box from "../elements/Box"
 import Button from "../elements/Button"
+import { useDispatch } from "react-redux"
 import { HiOutlineHeart, HiHeart } from "react-icons/hi"
 import styled from "styled-components"
+import { deleteCmt } from "../../redux/modules/cmtSlice"
 
 const Comments = ({ comment }) => {
+  const dispatch = useDispatch()
+  const onDelete = (id) => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      dispatch(deleteCmt(id))
+    }
+  }
   return (
     <Box size="cmt" color="gray">
       <First>
@@ -16,14 +24,16 @@ const Comments = ({ comment }) => {
             <Button color="cmt-b">수정</Button>
           </li>
           <li>
-            <Button color="cmt-red">삭제</Button>
+            <Button onClick={() => onDelete(comment.commentId)} color="cmt-red">
+              삭제
+            </Button>
           </li>
         </Handle>
         <Like>
           <Icon>
             <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
           </Icon>
-          <LikeTxt>{comment.commentLikes}</LikeTxt>
+          <LikeTxt>{comment.commentLikeSized}</LikeTxt>
         </Like>
       </First>
       <BodyTxt>{comment.comment}</BodyTxt>

@@ -84,6 +84,7 @@ export const deletePost = createAsyncThunk(
 
       return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
+      alert(error.response.data.message)
       return thunkAPI.rejectWithValue(error)
     }
   }
