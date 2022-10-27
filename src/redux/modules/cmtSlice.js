@@ -16,9 +16,13 @@ export const addCmt = createAsyncThunk(
     console.log(payload)
     try {
       await axios
-        .post(`http://54.180.146.88/api/${payload.id}/comments`, payload, {
-          headers: header,
-        })
+        .post(
+          `${process.env.REACT_APP_URL}/api/${payload.id}/comments`,
+          payload,
+          {
+            headers: header,
+          }
+        )
         .then((response) => {
           console.log("response", response.data)
         })
@@ -34,12 +38,15 @@ export const deleteCmt = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      await axios.delete(`http://54.180.146.88/api/1/comments/${payload}`, {
-        headers: header,
-      })
+      await axios.delete(
+        `${process.env.REACT_APP_URL}/api/1/comments/${payload}`,
+        {
+          headers: header,
+        }
+      )
       alert("삭제가 완료되었습니다.")
       const data = await axios.get(
-        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        `https://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: header,
         }

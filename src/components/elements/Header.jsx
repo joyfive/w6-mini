@@ -11,7 +11,7 @@ const Header = () => {
     navigate("/")
   }
   const goMy = () => {
-    navigate("/signin")
+    navigate("/mypage")
   }
   const goAll = () => {
     navigate("/list")
@@ -19,7 +19,9 @@ const Header = () => {
   const goOur = () => {
     navigate("/list/team?sort=createdAt&accountTeam=All&tag=All")
   }
-
+  const goSign = () => {
+    navigate("/signin")
+  }
   const goEdit = () => {
     navigate("/editor?sort=createdAt&accountTeam=All&tag=All")
   }
@@ -31,12 +33,15 @@ const Header = () => {
             <HiHome className="ico" onClick={goHome} />
           </li>
           <li>
-            <HiUser className="ico" onClick={goMy} />
+            <HiUser className="ico" onClick={goSign} />
           </li>
         </Head2>
         <Head3>
           <li onClick={goAll}>모두의 이야기</li>
           <li onClick={goOur}>우리조 이야기</li>
+          <li onClick={goMy}>
+            마이페이지<span>(준비중)</span>
+          </li>
         </Head3>
       </Head1>
       <Tit>
@@ -105,6 +110,11 @@ const Head3 = styled.div`
     :hover {
       font-size: 15px;
       font-weight: 900;
+    }
+    span {
+      font-weight: 400;
+      margin-left: 5px;
+      color: #ffd1d3;
     }
   }
   @media screen and (max-width: 900px) {

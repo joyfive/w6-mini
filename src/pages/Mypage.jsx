@@ -4,7 +4,7 @@ import styled from "styled-components"
 import Layout from "../components/elements/Layout"
 import Box from "../components/elements/Box"
 import Button from "../components/elements/Button"
-import MyComments from "../components/features/MyComments"
+// import MyComments from "../components/features/MyComments"
 import List from "../components/features/List"
 import { HiPencilAlt, HiPencil } from "react-icons/hi"
 
@@ -61,9 +61,7 @@ const Mypage = () => {
       <ShowList display={usePost}>
         <List />
       </ShowList>
-      <ShowCmt display={useCmt}>
-        <MyComments />
-      </ShowCmt>
+      <ShowCmt display={useCmt}></ShowCmt>
     </Layout>
   )
 }

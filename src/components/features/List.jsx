@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Box from "../elements/Box"
 import Post from "./Post"
 import { getList, deletePost } from "../../redux/modules/postSilice"
-
+import styled from "styled-components"
 const List = () => {
   const dispatch = useDispatch()
   const posts = useSelector((state) => state.posts.posts)
@@ -18,12 +18,14 @@ const List = () => {
     }
   }
   return (
-    <Box size="list" color="gray">
-      {posts.map((post, id) => {
-        if (posts.length !== 0)
-          return <Post key={post.postId} post={post} onDelete={onDelete} />
-      })}
-    </Box>
+    <>
+      <Box size="list" color="gray">
+        {posts.map((post, id) => {
+          if (posts.length !== 0)
+            return <Post key={post.postId} post={post} onDelete={onDelete} />
+        })}
+      </Box>
+    </>
   )
 }
 

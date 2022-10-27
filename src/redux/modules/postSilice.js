@@ -16,7 +16,7 @@ export const addPost = createAsyncThunk(
     try {
       await axios
 
-        .post(`http://54.180.146.88/api/posts`, payload, {
+        .post(`${process.env.REACT_APP_URL}/api/posts`, payload, {
           headers: {
             enctype: "multipart/form-data",
             Access_Token: getCookie("Access_Token"),
@@ -55,7 +55,7 @@ export const getList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        `${process.env.REACT_APP_URL}/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: header,
         }
@@ -71,12 +71,12 @@ export const deletePost = createAsyncThunk(
   "post/deletePost", //type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://54.180.146.88/api/posts/${payload}`, {
+      await axios.delete(`${process.env.REACT_APP_URL}/api/posts/${payload}`, {
         headers: header,
       })
       alert("삭제가 완료되었습니다.")
       const data = await axios.get(
-        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        `${process.env.REACT_APP_URL}/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: header,
         }
