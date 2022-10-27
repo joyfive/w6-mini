@@ -19,7 +19,9 @@ const Header = () => {
   const goOur = () => {
     navigate("/list/team?sort=createdAt&accountTeam=All&tag=All")
   }
-
+  const goSign = () => {
+    navigate("/signin")
+  }
   const goEdit = () => {
     navigate("/editor?sort=createdAt&accountTeam=All&tag=All")
   }
@@ -31,7 +33,7 @@ const Header = () => {
             <HiHome className="ico" onClick={goHome} />
           </li>
           <li>
-            <HiUser className="ico" onClick={goMy} />
+            <HiUser className="ico" onClick={goSign} />
           </li>
         </Head2>
         <Head3>
