@@ -18,7 +18,10 @@ export const accountSignin = createAsyncThunk(
       //   `http://3.39.72.234:8080/api/account/login`,
       //   payload
       // )
-      const data = await axios.post(`http://54.180.146.88/auth/login`, payload)
+      const data = await axios.post(
+        `${process.env.REACT_APP_URL}/auth/login`,
+        payload
+      )
       const Access_Token = data.headers.access_token
       // const refreshToken = data.headers["refresh-token"];
       if (data.status === 200 || data.status === 201) {
@@ -45,7 +48,7 @@ export const accountCheck = createAsyncThunk(
   // type
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`http://54.180.146.88/auth/check`, {
+      const data = await axios.post(`${process.env.REACT_APP_URL}/auth/check`, {
         email: payload,
       })
       alert(data.data.message)
@@ -62,7 +65,10 @@ export const accountSignup = createAsyncThunk(
   "account/userSignUp",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`http://54.180.146.88/auth/signup`, payload)
+      const data = await axios.post(
+        `${process.env.REACT_APP_URL}/auth/signup`,
+        payload
+      )
       alert(data.data.message)
       window.location.replace("/signin")
       return thunkAPI.fulfillWithValue(data.data)

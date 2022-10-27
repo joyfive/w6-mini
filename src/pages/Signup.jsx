@@ -85,7 +85,6 @@ const SignUp = () => {
     // if (obj.nickname === "" || obj.accountName === undefined) {
     //   return alert("빈칸을 입력해주세요.")
     // }
-    console.log(obj.accountName)
     dispatch(accountSignup(obj))
   }
   useEffect(() => {
@@ -181,7 +180,6 @@ const SignUp = () => {
           </Div>
           <Div>
             <Txt> 팀장님이신가요?</Txt>
-
             <select
               name="accountLeader"
               onChange={(e) => {
@@ -224,16 +222,17 @@ const H1 = styled.h1`
   text-align: center;
 `
 const Div = styled.div`
-  width: 80%;
+  width: 81%;
   margin: 20px auto;
   text-align: center;
 
   select {
-    width: 100%;
+    width: 600px;
     height: 50px !important;
     padding: 10px 20px;
     border-radius: 10px;
     border: 1px solid #fd5c63;
+    background-color: #fff;
     box-shadow: 0px 2px 10px #e1cccd;
     margin: 10px 0;
   }

@@ -14,7 +14,7 @@ export const getHome = createAsyncThunk(
   "home", //type
   async (_, thunkAPI) => {
     try {
-      const data = await axios.get(`http://54.180.146.88/auth/home`, {
+      const data = await axios.get(`${process.env.REACT_APP_URL}/auth/home`, {
         withCredentials: true, // 쿠키 cors 통신 설정
       })
 
