@@ -1,16 +1,29 @@
-import React from 'react'
-import Box from '../elements/Box'
-import Post from './Post'
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import Box from "../elements/Box"
+import Post from "./Post"
+import { getList, deletePost } from "../../redux/modules/postSilice"
 
 const List = () => {
+  const dispatch = useDispatch()
+  const posts = useSelector((state) => state.posts.posts)
+
+  useEffect(() => {
+    dispatch(getList())
+  }, [dispatch])
+
+  const onDelete = (id) => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      dispatch(deletePost(id))
+    }
+  }
   return (
     <Box size="list" color="gray">
- 
-    <Post />
-    <Post /><Post /><Post /><Post /><Post /><Post />
-
+      {posts.map((post, id) => {
+        if (posts.length !== 0)
+          return <Post key={post.postId} post={post} onDelete={onDelete} />
+      })}
     </Box>
-    
   )
 }
 

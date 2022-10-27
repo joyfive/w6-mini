@@ -1,0 +1,62 @@
+{
+  "home": {
+    "goodWord": "오늘 안되면, 내일, 내일도 안되면 될때까지 TRY👊 해봅시다!",
+    "dday": -59
+  },
+  "posts": [
+    {
+      "postId": 2,
+      "accountName": "짱윤서",
+      "accountTeam": "3조",
+      "accountLead": "true",
+      "img": "https://images.unsplash.com/photo-1666633063331-177a3ff7526f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "title": "다들 식사는 하셨나요?",
+      "contents": "밥이 보약입니다 맛점! 😝",
+      "tag": "공지",
+      "postLikes": 5,
+      "createdAt": "13분 전",
+      "modifiedAt": "13분 전",
+      "comments": [
+        {
+          "postId": 2,
+          "commentId": 1,
+          "accountName": "오기쁨",
+          "comment": "ㅠㅠ밥먹고 오겠습니다",
+          "commentLikes": 1,
+          "createdAt": "방금 전"
+        },
+        {
+          "postId": 2,
+          "commentId": 2,
+          "accountName": "정성우",
+          "comment": "저는 벌써 먹었습니다.",
+          "commentLikes": 0,
+          "createdAt": "방금 전"
+        }
+      ]
+    },
+    {
+      "postId": 1,
+      "accountName": "오기쁨",
+      "accountTeam": "3조",
+      "accountLead": "false",
+      "img": "https://images.unsplash.com/photo-1518057111178-44a106bad636?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+      "title": "졸리네요...",
+      "contents": "다들 커피한잔 하고 하시죠🥲",
+      "tag": "일상",
+      "postLikes": 3,
+      "createdAt": "20분 전",
+      "modifiedAt": "12분 전",
+      "comments": [
+        {
+          "postId": 1,
+          "commentId": 1,
+          "accountName": "오기쁨",
+          "comment": "ㅠㅠ밥먹고 오겠습니다",
+          "commentLikes": 1,
+          "createdAt": "방금 전"
+        }
+      ]
+    }
+  ]
+}

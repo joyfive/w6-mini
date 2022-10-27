@@ -1,15 +1,15 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from "react"
+import styled, { css } from "styled-components"
 
 const Box = (props) => {
   return (
     <StDiv {...props} disabled={props.disabled}>
       {props.children}
     </StDiv>
-  );
-};
+  )
+}
 
-export default Box;
+export default Box
 
 const StDiv = styled.div`
   padding: 10px;
@@ -30,7 +30,7 @@ const StDiv = styled.div`
         return css`
           width: 100%;
           height: 100%;
-        `;
+        `
       case "medium":
         return css`
           width: 50%;
@@ -42,13 +42,34 @@ const StDiv = styled.div`
           @media scree and (max-width:600px) {
             width: 90%;
           }
-        `;
+        `
+      case "account":
+        return css`
+          display: block;
+          width: 90%;
+          min-width: 300px;
+          max-width: 920px;
+          margin: 0 auto;
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: ;
+          background-color: #f7f2f4 !important;
+          color: #121212 !important;
+
+          @media screen and (max-width: 1080px) {
+            max-width: 610px;
+            padding: 12px;
+          }
+          @media screen and (max-width: 700px) {
+            max-width: 300px;
+          }
+        `
       case "mytitle":
         return css`
           display: block;
           width: 90%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           margin: 0 auto;
           padding: 0;
           border-radius: 10px;
@@ -57,18 +78,18 @@ const StDiv = styled.div`
           color: #121212 !important;
 
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 610px;
             padding: 12px;
           }
           @media screen and (max-width: 700px) {
             max-width: 300px;
           }
-        `;
+        `
       case "middle":
         return css`
-          width: 90%;
+          width: 100%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           margin: 20px auto;
           height: 40px !important;
           padding: 10px;
@@ -79,7 +100,7 @@ const StDiv = styled.div`
           border-radius: 50px;
 
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 610px;
             padding: 12px;
             font-size: 16px;
             line-height: 2.5;
@@ -87,19 +108,24 @@ const StDiv = styled.div`
           @media screen and (max-width: 700px) {
             max-width: 300px;
           }
-        `;
+        `
       case "item":
         return css`
           width: 260px;
           min-height: 160px !important;
           padding: 15px;
           align-self: flex-start;
-        `;
+
+          :hover {
+            background-color: #f7f2f4;
+            cursor: default;
+          }
+        `
       case "list":
         return css`
           width: 100%;
           min-width: 300px;
-          max-width: 900px;
+          max-width: 920px;
           display: flex;
           flex-flow: row wrap;
           align-content: flex-start;
@@ -110,13 +136,13 @@ const StDiv = styled.div`
           margin: 10px auto;
           padding: 20px;
           @media screen and (max-width: 1080px) {
-            max-width: 600px;
+            max-width: 620px;
             padding: 20px;
           }
           @media screen and (max-width: 700px) {
-            max-width: 300px;
+            max-width: 31 0px;
           }
-        `;
+        `
       case "cmt":
         return css`
           width: 95%;
@@ -124,7 +150,7 @@ const StDiv = styled.div`
           padding: 0 0 5px 0;
           margin: 10px auto;
           display: block;
-        `;
+        `
       case "usercmt":
         return css`
           width: 250px;
@@ -140,7 +166,16 @@ const StDiv = styled.div`
           border: 0;
           box-shadow: 0px 2px 10px #e1cccd;
           text-align: center;
-        `;
+        `
+      case "home":
+        return css`
+          width: 40px;
+          height: 40px;
+          border-radius: 30px;
+          font-size: 18px;
+          line-height: 2.5;
+          text-align: center;
+        `
       case "round":
         return css`
           width: 25px;
@@ -155,13 +190,13 @@ const StDiv = styled.div`
           margin: 0 10px 0 0;
           border: 0;
           box-shadow: 0px 2px 10px #e1cccd;
-        `;
+        `
       default:
         return css`
           height: 30px !important;
           padding: 10px;
           margin: 20px auto;
-        `;
+        `
     }
   }}
 
@@ -171,21 +206,21 @@ const StDiv = styled.div`
         return css`
           background-color: white;
           border: 1px solid #fd5c63;
-        `;
+        `
       case "gray":
         return css`
           background-color: #f7f2f4;
-        `;
+        `
       case "reverse":
         return css`
           background-color: #fd5c63;
           color: white;
-        `;
+        `
       default:
         return css`
           color: #141414;
           background-color: #fff;
-        `;
+        `
     }
   }}
-`;
+`

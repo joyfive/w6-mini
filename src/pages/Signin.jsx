@@ -1,78 +1,95 @@
-import React from 'react'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { accountSignin } from "../redux/modules/accountSlice"
+import Layout from "../components/elements/Layout"
+import Box from "../components/elements/Box"
+import styled from "styled-components"
+import Input from "../components/elements/Input"
+import Button from "../components/elements/Button"
+// {}로 감싸주기(actions 함수 써야하니까)
 
-import Input from '../components/elements/Input'
-import Button from '../components/elements/Button'
-import styled from 'styled-components'
+const SignIn = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const initialState = {
+    userid: "",
+    password: "",
+  }
+  const [login, setLogin] = useState(initialState)
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target
+    setLogin({ ...login, [name]: value })
+  }
 
-const Signin = () => {
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+    const obj = {
+      //임시
+      email: login.userid,
+      accountPw: login.password,
+    }
+    dispatch(accountSignin(obj))
+  }
+
   return (
-    <Container>
-      <TitleBox>
-        <h1>로그인</h1>
-        <p>C반 커뮤니티는 항해99 C반 회원만 이용이 가능해요!</p>
-      </TitleBox>
-
-      <SigninBox>
-        <LabelInput>
-          <label>아이디</label>
-          <Input color="line"></Input><br/>
-        </LabelInput>
-        <LabelInput2>
-          <label>비밀번호</label>
-          <Input color="line"></Input><br/>
-        </LabelInput2>
-      </SigninBox>
-
-      <Btn>
-        <Button size="medium">회원가입</Button>
-        <Button color="reverse" size="medium">로그인</Button>
-      </Btn>
-    </Container>
-
+    <Layout>
+      <Cont>
+        <Box size="account">
+          <H1>로그인</H1>
+          <div>
+            <Input
+              size="full"
+              type="text"
+              name="userid"
+              value={login.userid}
+              placeholder="아이디"
+              onChange={onChangeHandler}
+            ></Input>
+          </div>
+          <div>
+            <Input
+              size="full"
+              type="password"
+              name="password"
+              value={login.password}
+              placeholder="비밀번호"
+              onChange={onChangeHandler}
+            ></Input>
+          </div>
+          <BtnGroup>
+            <Button
+              type="submit"
+              onClick={() => {
+                navigate("/signup")
+              }}
+            >
+              회원가입
+            </Button>
+            <Button color="reverse" onClick={onSubmitHandler}>
+              로그인
+            </Button>
+          </BtnGroup>
+        </Box>
+      </Cont>
+    </Layout>
   )
 }
 
-export default Signin
+export default SignIn
 
-//전체
-const Container = styled.div`
-    margin: 0 auto;
-    position:absolute;
-    left:37%;
-    top:20%;
+const Cont = styled.div`
+  margin-top: 80px;
 `
-//로그인 타이틀
-const TitleBox = styled.div`
+
+const H1 = styled.h1`
+  font-size: 48px;
+  font-weight: 700;
   text-align: center;
 `
-//로그인 박스
-const SigninBox = styled.div`
-    width: 400px;
-    height: 150px;
-    padding: 10%;
-    margin: 30px 50% 0 0;
-    border: 3px solid rgb(238, 238, 238);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`
-//아이디 입력창
-const LabelInput = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    
-`
-//패스워드 입력창
-const LabelInput2 = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 15px;
-`
-//회원가입 & 로그인 버튼
-const Btn = styled.div`
-  margin-right: 100px;
-  margin-top: 20px;
-  width: 100%;
-  padding-left: 10%;
+const BtnGroup = styled.div`
+  display: flex;
+  margin: 20px auto;
+  justify-content: center;
 `

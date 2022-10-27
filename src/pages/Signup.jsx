@@ -1,178 +1,274 @@
-import React from 'react'
-import Button from '../components/elements/Button'
-import Input from '../components/elements/Input'
-import styled from 'styled-components'
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { accountSignup, accountCheck } from "../redux/modules/accountSlice"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import Layout from "../components/elements/Layout"
+import Box from "../components/elements/Box"
+import Input from "../components/elements/Input"
+import Button from "../components/elements/Button"
+import styled from "styled-components"
 
-const Signup = () => {
+const SignUp = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { account } = useSelector((state) => state.account)
+
+  const initialState = {
+    email: "",
+    accountName: "",
+    accountPw: "",
+    accountPwConfirm: "",
+    accountTeam: "",
+    accountLeader: "",
+  }
+  const [join, setJoin] = useState(initialState)
+
+  const [accountTeam, setAccountTeam] = useState("3조")
+  const [accountLeader, setAccountLeader] = useState("false")
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target
+    setJoin({ ...join, [name]: value })
+  }
+  const obj = {
+    email: join.email,
+    accountName: join.accountName,
+    accountPw: join.accountPw,
+    accountPwConfirm: join.accountPwConfirm,
+    accountTeam: accountTeam,
+    accountLeader: accountLeader,
+  }
+
+  const emailCheck = /^[a-z]+[a-z0-9]{5,13}$/g
+  const pwCheck = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/
+
+  const onCheck = () => {
+    // 수정 필요(true, false로만 받으면 됨. if 필요 없음. dispatch로 받으면 됨)
+    dispatch(accountCheck(obj.email))
+  }
+
+  // useEffect(() => {
+  //   if (idCheck !== undefined) {
+  //     if (idCheck.success === true) {
+  //       return alert("사용 가능한 ID입니다.")
+  //     } else {
+  //       return alert("이미 사용중인 ID가 있습니다.")
+  //     }
+  //   }
+  // }, [dispatch, idCheck])
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+    // if (!accountIdCheck.test(obj.accountId)) {
+    //   return alert("아이디 형식에 맞지 않습니다.")
+    // }
+    // if (!passwordCheck.test(obj.password)) {
+    //   return alert("비밀번호 형식에 맞지 않습니다.")
+    // }
+    // if (obj.password !== obj.passwordconfirm) {
+    //   return alert("비밀번호 확인이 일치하지 않습니다.")
+    // }
+    // if (
+    //   obj.password === "" ||
+    //   obj.passwordconfirm === "" ||
+    //   obj.password === undefined ||
+    //   obj.passwordconfirm === undefined
+    // ) {
+    //   return alert("빈칸을 입력해주세요.")
+    // }
+    // if (obj.userid === "" || obj.accountId === undefined) {
+    //   return alert("빈칸을 입력해주세요.")
+    // }
+
+    // if (obj.nickname === "" || obj.accountName === undefined) {
+    //   return alert("빈칸을 입력해주세요.")
+    // }
+    console.log(obj.accountName)
+    dispatch(accountSignup(obj))
+  }
+  useEffect(() => {
+    if (account !== undefined) {
+      if (account.success === true) {
+        alert("회원가입이 완료되었습니다.")
+        setJoin({
+          email: "",
+          accountName: "",
+          accountPw: "",
+          accountPwConfirm: "",
+          accountTeam: "",
+          accountLeader: "",
+        })
+        window.location.replace("/")
+      } else {
+        if (account.error !== undefined) {
+          alert(account.error)
+        }
+      }
+    }
+  }, [account])
+
   return (
-    <Container>
-      <TitleBox>
-        <h1>회원가입</h1>
-      </TitleBox>
-      <SignupBox>
-        <LabelInput>
-          <label>아이디</label>
-          <Input color="line"></Input><br/>
-        </LabelInput>
-        <Button color="reverse" size="medium">중복확인</Button><br />
+    <Layout>
+      <Cont>
+        <Box size="account">
+          <H1>회원가입</H1>
+          <Div>
+            <Flex>
+              <Input
+                size="full"
+                type="text"
+                name="email"
+                onChange={onChangeHandler}
+                placeholder="아이디는 영문자로 시작하는 영문자 또는 숫자 6~20자"
+              ></Input>
+              <Button
+                color="reverse"
+                size="percent"
+                type="button"
+                onClick={onCheck}
+              >
+                중복확인
+              </Button>
+            </Flex>
+            <div>
+              <Input
+                size="full"
+                type="text"
+                name="accountName"
+                onChange={onChangeHandler}
+                placeholder="이름을 입력해주세요"
+              ></Input>
+            </div>
+            <div>
+              <Input
+                size="full"
+                type="password"
+                name="accountPw"
+                onChange={onChangeHandler}
+                placeholder="비밀번호는 8 ~ 16자 영문, 숫자 조합"
+              ></Input>
+            </div>
+            <div>
+              <Input
+                size="full"
+                type="password"
+                name="accountPwConfirm"
+                placeholder="비밀번호 확인"
+                onChange={onChangeHandler}
+              ></Input>
+            </div>
+            <div>
+              <Div>
+                <Txt> 몇조이신가요?🤗</Txt>
+                <select
+                  name="accountTeam"
+                  onChange={(e) => {
+                    setAccountTeam(e.target.value)
+                  }}
+                >
+                  <option value={""}> --조 선택--</option>
+                  <option value={"1"}>1조</option>
+                  <option value={"2"}>2조</option>
+                  <option value={"3"}>3조</option>
+                  <option value={"4"}>4조</option>
+                  <option value={"5"}>5조</option>
+                  <option value={"6"}>6조</option>
+                </select>
+              </Div>
+            </div>
+          </Div>
+          <Div>
+            <Txt> 팀장님이신가요?</Txt>
 
-        <LabelInput2>
-          <label>비밀번호</label>
-          <Input color="line"></Input><br/>
-        </LabelInput2>
-        <LabelInput2>
-          <label>비밀번호<br/>확인</label>
-          <Input color="line"></Input><br/>
-        </LabelInput2>
-
-        <RadioBox>
-          <TeamText>조를 선택해주세요!</TeamText>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>1조</Span>
-            </LabelBox>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>2조</Span>
-            </LabelBox>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>3조</Span>
-            </LabelBox><br/>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>4조</Span>
-            </LabelBox>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>5조</Span>
-            </LabelBox>
-            <LabelBox>
-              <Radio type="radio" name="account_team" />
-              <Span>6조</Span>
-            </LabelBox>
-        </RadioBox>
-
-        <RadioBox2>
-          <TeamText>팀장이신가요?</TeamText>
-            <LabelBox2>
-                <Radio2 id="radio1" type="radio" name="account_Lead" />
-                <label for="radio1">네</label>
-            </LabelBox2>
-            <LabelBox2>
-                <Radio2 id="radio2" type="radio" name="account_Lead" />
-                <label for="radio2">아니요</label>
-            </LabelBox2>
-        </RadioBox2>
-    </SignupBox>
-      <Btn>
-        <Button color="reverse" size="medium">회원가입</Button>
-      </Btn>
-    </Container>
+            <select
+              name="accountLeader"
+              onChange={(e) => {
+                setAccountLeader(e.target.value)
+              }}
+            >
+              <option value={""}> --선택-- </option>
+              <option value={"true"}>네</option>
+              <option value={"false"}>아니요</option>
+            </select>
+          </Div>
+          <BtnGroup>
+            <Button
+              size="short"
+              onClick={() => {
+                navigate("/")
+              }}
+            >
+              뒤로가기
+            </Button>
+            <Button size="short" color="reverse" onClick={onSubmitHandler}>
+              회원가입
+            </Button>
+          </BtnGroup>
+        </Box>
+      </Cont>
+    </Layout>
   )
 }
 
-export default Signup
+export default SignUp
 
-//전체
-const Container = styled.div`
-    margin: 0 auto;
-    position:absolute;
-    left:37%;
-    top:10%;
+const Cont = styled.div`
+  margin-top: 80px;
 `
-//타이틀
-const TitleBox = styled.div`
-  padding-left: 45%;
+
+const H1 = styled.h1`
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
 `
-//로그인 박스
-const SignupBox = styled.div`
-    width: 450px;
-    height: 550px;
-    padding: 10%;
-    margin: 30px 50% 0 0;
-    border: 3px solid rgb(238, 238, 238);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+const Div = styled.div`
+  width: 80%;
+  margin: 20px auto;
+  text-align: center;
+
+  select {
+    width: 100%;
+    height: 50px !important;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #fd5c63;
+    box-shadow: 0px 2px 10px #e1cccd;
+    margin: 10px 0;
+  }
 `
-//아이디 입력창
-const LabelInput = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    
-`
-//패스워드 입력창
-const LabelInput2 = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 15px;
-`
-//조 선택 박스
-const RadioBox = styled.div`
-  justify-content: center;
-  border: none;
-  margin: 0;
-  padding: 20px 100px;
-`
-//조를 선택해주세요, 팀장이신가요?
-const TeamText = styled.div`
-  padding-left: 15%;
-  padding-bottom: 10px;
-  
-`
-//조를 선택해주세요 -> 라벨들
-const LabelBox = styled.label`
-  font-size: 18px;
-  line-height: 2rem;
-  padding: 0.2em 0.4em;
-`
-//조를 선택해주세요 -> 라디오
-const Radio =  styled.input`
-  vertical-align: middle;
-  appearance: none;
-  border: 2px solid gray;
-  border-radius: 50%;
-  width: 1.25em;
-  height: 1.25em;
-  /* transition: border 0.5s ease-in-out; */
-    &:checked {
-  border: 0.4em solid tomato;
-}
-`
-//조를 선택해주세요 -> ~조
-const Span = styled.span`
-  vertical-align: middle;
-`
-//팀장이신가요? 박스
-const RadioBox2 = styled.div`
+
+const BtnGroup = styled.div`
   display: flex;
-  border: none;
-  align-items: center;
-  gap: 30px; 
-`
-//팀장이신가요? -> 라디오
-const Radio2 = styled.input`
-  display: none;
-
-  &:checked + label {
-  background-color: #fd5c63;
-  color: #ffffff;
-}
-`
-//팀장이신가요? -> 라벨들
-const LabelBox2 = styled.label`
-  display: inline-block;
-  padding: 15px 10px;
-  border: 1px solid #fd5c63;
-  background-color: white;
-  /* text-align: center; */
-`
-//회원가입 버튼
-const Btn = styled.div`
-  margin-top: 20px;
-  width: 100%;
-  padding-left: 40%;
+  margin: 20px auto;
+  justify-content: center;
 `
 
+const Flex = styled.div`
+  display: flex;
+  justify-content: center;
+  line-height: 2.7;
+
+  [type="radio"] {
+    appearance: none;
+    margin: 10px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+
+    :checked {
+      background-color: #fd5c63;
+    }
+  }
+`
+const Txt = styled.div`
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-right: 30px;
+`

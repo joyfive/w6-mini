@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Home from "../pages/Home"
+import Home from "../pages/Home";
 import Editor from "../pages/Editor";
 import Posts from "../pages/Posts";
 import AllList from "../pages/AllList";
@@ -25,7 +25,7 @@ const Router = () => {
         <Route path="/list" element={<AllList />} />
         <Route path="/list/team" element={<TeamList />} />
         <Route path="/Editor" element={<Editor />} />
-        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:id" element={<Posts />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage" element={<Mypage />} />
@@ -36,4 +36,6 @@ const Router = () => {
 
 export default Router;
 
-{/* <Route path="/posts/:id" element={<Posts />} /> */}
+{
+  /* <Route path="/posts/:id" element={<Posts />} /> */
+}

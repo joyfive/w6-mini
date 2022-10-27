@@ -1,22 +1,28 @@
-import React from "react";
-import styled from "styled-components";
-import { HiHome, HiUser } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import styled from "styled-components"
+import { HiHome, HiUser, HiPencil } from "react-icons/hi"
+import { useNavigate } from "react-router-dom"
+
+import Button from "./Button"
 
 const Header = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const goHome = () => {
-    navigate("/");
-  };
+    navigate("/")
+  }
   const goMy = () => {
-    navigate("/mypage");
-  };
+    navigate("/signin")
+  }
   const goAll = () => {
-    navigate("/list");
-  };
+    navigate("/list")
+  }
   const goOur = () => {
-    navigate("/list/team");
-  };
+    navigate("/list/team?sort=createdAt&accountTeam=All&tag=All")
+  }
+
+  const goEdit = () => {
+    navigate("/editor?sort=createdAt&accountTeam=All&tag=All")
+  }
   return (
     <Head>
       <Head1>
@@ -33,11 +39,16 @@ const Header = () => {
           <li onClick={goOur}>우리조 이야기</li>
         </Head3>
       </Head1>
+      <Tit>
+        <Button size="round" onClick={goEdit}>
+          <HiPencil />
+        </Button>
+      </Tit>
     </Head>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
 
 const Head = styled.header`
   position: fixed;
@@ -56,7 +67,7 @@ const Head = styled.header`
       padding: 0;
     }
   }
-`;
+`
 const Head1 = styled.ul`
   margin: 140px 5px 0 0;
   li {
@@ -73,7 +84,7 @@ const Head1 = styled.ul`
       margin-left: 20px;
     }
   }
-`;
+`
 
 const Head2 = styled.div`
   display: flex;
@@ -86,7 +97,7 @@ const Head2 = styled.div`
       scale: 110%;
     }
   }
-`;
+`
 
 const Head3 = styled.div`
   cursor: pointer;
@@ -100,4 +111,10 @@ const Head3 = styled.div`
     margin-top: 6px;
     display: flex;
   }
-`;
+`
+
+const Tit = styled.div`
+  position: fixed;
+  bottom: 90px;
+  right: 40px;
+`
