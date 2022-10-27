@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+## 항해 99 미니프로젝트 : 프론트엔드
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 팀원
 
-## Available Scripts
+### FE
 
-In the project directory, you can run:
+- [오기쁨](https://github.com/SunghwaSon) | **React**
+- [손성화](https://github.com/joyfive) | **React**
 
-### `npm start`
+### BE
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [장윤서](https://github.com/Younddo) | **Spring** _팀장_
+- [정동훈](https://github.com/dhun0103?tab=repositories) | **Spring**
+- [정성우](https://github.com/dhun0103?tab=repositories) | **Spring**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 페이지별 기능요약
 
-### `npm test`
+### 1. 홈(GET)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- d-day, 랜덤문구 api 조회
 
-### `npm run build`
+### 2. 회원가입/로그인 (POST 및 토큰 저장)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Input text box 및 Select box 활용하여 data 전송
+- 로그인 시 Response header 의 토큰을 쿠키에 저장 (setCookie)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. 리스트 조회 (GET, 요청 시 header에 토큰 전달)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 파라미터값으로 요청 기획하였으나, 시간부족으로 프론트는 기능 미구현, 백엔드는 구현완료
+  (list (모두의 이야기) 페이지는 최신순, 모든 조, 모든 태그 기준으로 요청 / list/team (우리조 이야기) 페이지는 최신순, 3조, 모든 태그 기준으로 요청하도록 임의 처리했습니다.
 
-### `npm run eject`
+### 4. 게시글 등록(POST)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 이미지 file 타입과 일반 인풋 값 텍스트 밸류 form data로 취합하여 POST
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 5. 게시글 삭제(DELETE)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- postID로 삭제 요청
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 6. 댓글 등록(POST) - post ID prop
 
-## Learn More
+- postID로 특정 게시글 분류하여 댓글 등록 요청
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 7. 댓글 삭제(DELETE) - post ID 및 comment ID prop
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Comment ID로 특정 댓글 분류하여 댓글 삭제 요청
 
-### Code Splitting
+### 8. 그 외 게시글 수정, 게시글 좋아요, 댓글 좋아요, 상세페이지 조회, 마이페이지 내가쓴 게시글, 댓글 조회는
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 백엔드 개발 완료되었으나 시간관계상 프론트는 UI만 구현하였습니다.
 
-### Analyzing the Bundle Size
+### 9. 재사용성 고려
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Button, input, box UI 구현용 컴포넌트 분리 및 커스텀 훅 useInput 사용으로 재사용성을 높이고자 함
