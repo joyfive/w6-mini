@@ -116,7 +116,7 @@ const Post = ({ post, onDelete, id }) => {
           </TagLi>
           <TagLi>
             <Button color="tag-b">
-              {post.accountLead === "true" ? "팀장" : "팀원"}
+              {post.accountLeader === true ? "팀장" : "팀원"}
             </Button>
           </TagLi>
           <TagLi>

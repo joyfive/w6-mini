@@ -33,7 +33,7 @@ const Comments = ({ comment }) => {
           <Icon>
             <HiOutlineHeart className="ico" /> <HiHeart className="ico2" />
           </Icon>
-          <LikeTxt>{comment.commentLikeSized}</LikeTxt>
+          <LikeTxt>{comment.commentLikes}</LikeTxt>
         </Like>
       </First>
       <BodyTxt>{comment.comment}</BodyTxt>

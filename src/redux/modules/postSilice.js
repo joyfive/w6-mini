@@ -76,7 +76,7 @@ export const deletePost = createAsyncThunk(
       })
       alert("삭제가 완료되었습니다.")
       const data = await axios.get(
-        `${process.env.REACT_APP_URL}/api/posts?sort=createdAt&accountTeam=All&tag=All`,
+        `http://54.180.146.88/api/posts?sort=createdAt&accountTeam=All&tag=All`,
         {
           headers: header,
         }
